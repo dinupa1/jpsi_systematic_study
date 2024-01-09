@@ -39,7 +39,7 @@ void DrawEfficiency(TString input_file, TString var_cut, TString can_name)
     can->Update();
     auto graph = effi->GetPaintedGraph();
     graph->SetMinimum(0.);
-    graphi->SetMaximum(1.2);
+    graph->SetMaximum(1.2);
     can->Update();
     can->SaveAs(can_name.Data());
 
