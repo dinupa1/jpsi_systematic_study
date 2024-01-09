@@ -33,7 +33,7 @@ void Efficiency()
     auto effi = new TEfficiency(*hReco, *hAcc);
     effi->SetMarkerColor(kAzure);
     effi->SetMarkerStyle(20);
-    effi->SetMarkerSize(2);
+    effi->SetMarkerSize(1);
     effi->SetName("effi");
     effi->SetTitle("effi; D1 [a.u.]; Efficiency [a.u.]");
 
