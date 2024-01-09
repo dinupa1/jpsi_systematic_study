@@ -33,10 +33,14 @@ void DrawEfficiency(TString input_file, TString var_cut, TString can_name)
     effi->SetMarkerSize(1);
     effi->SetName("effi");
     effi->SetTitle("effi; D1 [a.u.]; Efficiency [a.u.]");
-    effi->SetLimits(0.8, 1.2);
 
     auto can = new TCanvas();
     effi->Draw("APE1");
+    can-Update();
+    auto graph = effi->GetPaintedGraph();
+    graph->SetMinimum(0.);
+    graphi->SetMaximum(1.2);
+    can->Update();
     can->SaveAs(can_name.Data());
 
     delete effi;
