@@ -36,7 +36,7 @@ void DrawEfficiency(TString input_file, TString var_cut, TString can_name)
 
     auto can = new TCanvas();
     effi->Draw("APE1");
-    can-Update();
+    can->Update();
     auto graph = effi->GetPaintedGraph();
     graph->SetMinimum(0.);
     graphi->SetMaximum(1.2);
