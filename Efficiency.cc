@@ -46,8 +46,8 @@ void Efficiency()
 {
     TString LH2_jpsi_file = "/seaquest/users/chleung/pT_ReWeight/mc_jpsi_LH2_M027_S002_clean_occ_pTxFweight_v2.root";
     TString LD2_jpsi_file = "/seaquest/users/chleung/pT_ReWeight/mc_jpsi_LD2_M027_S002_clean_occ_pTxFweight_v2.root";
-    TString LH2_jpsiprime_file = "/seaquest/users/chleung/pT_ReWeight/mc_jpsiprime_LH2_M027_S002_clean_occ_pTxFweight_v2.root";
-    TString LD2_jpsiprime_file = "/seaquest/users/chleung/pT_ReWeight/mc_jpsiprime_LD2_M027_S002_clean_occ_pTxFweight_v2.root";
+    TString LH2_jpsiprime_file = "/seaquest/users/chleung/pT_ReWeight/mc_psiprime_LH2_M027_S002_clean_occ_pTxFweight_v2.root";
+    TString LD2_jpsiprime_file = "/seaquest/users/chleung/pT_ReWeight/mc_psiprime_LD2_M027_S002_clean_occ_pTxFweight_v2.root";
 
     TString var_cuts[5] = {"&& 0.4 < xF && xF < 0.6", "&& 0.6 < xF && xF < 0.65", "&& 0.65 < xF && xF < 0.7", "&& 0.7 < xF && xF < 0.77", "&& 0.77 < xF && xF < 0.95"}
 
