@@ -15,7 +15,7 @@
 using namespace std;
 
 TString input_file = "/seaquest/users/chleung/pT_ReWeight/mc_jpsi_LH2_M027_S002_clean_occ_pTxFweight_v2.root"
-TString output_name = "imgs/LH2_efficiency.png"
+TString output_name = "imgs/LH2_efficiency.png";
 
 void Efficiency()
 {
