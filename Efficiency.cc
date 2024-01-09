@@ -14,12 +14,12 @@
 
 using namespace std;
 
-TString input_file = "/seaquest/users/chleung/pT_ReWeight/mc_jpsi_LH2_M027_S002_clean_occ_pTxFweight_v2.root"
+TString input_file = "/seaquest/users/chleung/pT_ReWeight/mc_jpsi_LH2_M027_S002_clean_occ_pTxFweight_v2.root";
 TString output_name = "imgs/LH2_efficiency.png";
 
 void Efficiency()
 {
-    TString CcutsTemp = chuckCutsPositive_2111v42_tmp && chuckCutsNegative_2111v42_tmp && chuckCutsDimuon_2111v42 && physicsCuts_noMassCut_    2111v42_tmp && jPsiCut_MC;
+    TString CcutsTemp = chuckCutsPositive_2111v42_tmp && chuckCutsNegative_2111v42_tmp && chuckCutsDimuon_2111v42 && physicsCuts_noMassCut_2111v42_tmp && jPsiCut_MC;
 
     auto inFile = TFile::Open(input_file.Data(), "READ");
     auto tree = (TTree*)inFile->Get("Tree");
@@ -30,7 +30,7 @@ void Efficiency()
     tree->Project("hAcc", "D2", "ReWeight"*CcutsTemp);
     tree->Project("hReco", "D2", "ReWeight"*(CcutsTemp + "&& mass > 0.0"));
 
-    auto effi = new TEfficiency(&hReco, &hAcc);
+    auto effi = new TEfficiency(*hReco, *hAcc);
     effi->SetMarkerColor(kAzure);
     effi->SetMarkerStyle(20);
     effi->SetMarkerSize(2);
