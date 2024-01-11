@@ -36,8 +36,8 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString hist_name
     auto tree_mix = (TTree*)file_mix->Get("Tree");
 
     TString hReal_name = Form("%s_real", hist_name.Data());
-    TString hMix_name = Form("%s_real", hist_name.Data());
-    TString hJpsi_name = Form("%s_real", hist_name.Data());
+    TString hMix_name = Form("%s_mix", hist_name.Data());
+    TString hJpsi_name = Form("%s_mc", hist_name.Data());
 
     auto hReal = new TH1D(hReal_name.Data(), hist_title.Data(), 50, xmin, xmax);
     auto hMix = new TH1D(hMix_name.Data(), hist_title.Data(), 50, xmin, xmax);
