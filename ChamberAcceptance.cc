@@ -26,13 +26,13 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString hist_name
     TString LH2_jpsi_data = "/seaquest/users/chleung/pT_ReWeight/mc_jpsi_LH2_M027_S002_clean_occ_pTxFweight_v2.root";
 
 
-    auto file_real = TFile::Open(real_data.Data(), "RECREATE");
+    auto file_real = TFile::Open(real_data.Data(), "READ");
     auto tree_real = (TTree*)file_real->Get("Tree");
 
-    auto file_mc = TFile::Open(LH2_jpsi_data.Data(), "RECREATE");
+    auto file_mc = TFile::Open(LH2_jpsi_data.Data(), "READ");
     auto tree_mc = (TTree*)file_mc->Get("Tree");
 
-    auto file_mix = TFile::Open(mix_data.Data(), "RECREATE");
+    auto file_mix = TFile::Open(mix_data.Data(), "READ");
     auto tree_mix = (TTree*)file_mix->Get("Tree");
 
     TString hReal_name = Form("%s_real", hist_name.Data());
