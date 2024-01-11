@@ -39,9 +39,9 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString hist_name
     TString hMix_name = Form("%s_mix", hist_name.Data());
     TString hJpsi_name = Form("%s_mc", hist_name.Data());
 
-    auto hReal = new TH1D(hReal_name.Data(), hist_title.Data(), 50, xmin, xmax);
-    auto hMix = new TH1D(hMix_name.Data(), hist_title.Data(), 50, xmin, xmax);
-    auto hJpsi = new TH1D(hJpsi_name.Data(), hist_title.Data(), 50, xmin, xmax);
+    auto hReal = new TH1D(hReal_name.Data(), hist_title.Data(), 20, xmin, xmax);
+    auto hMix = new TH1D(hMix_name.Data(), hist_title.Data(), 20, xmin, xmax);
+    auto hJpsi = new TH1D(hJpsi_name.Data(), hist_title.Data(), 20, xmin, xmax);
 
     hReal->Sumw2();
     hMix->Sumw2();
@@ -75,5 +75,13 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString hist_name
 
 void ChamberAcceptance()
 {
-    GetAcceptance("x1_st1", -60., 20., "hist_x1_st1", "; x1_st1 [cm]; normalized to unity [a.u.]");
+    GetAcceptance("x1_st1", -30., 20., "hist_x1_st1", "; x1_st1 [cm]; normalized to unity [a.u.]");
+    GetAcceptance("x2_st1", -20., 50., "hist_x2_st1", "; x2_st1 [cm]; normalized to unity [a.u.]");
+    GetAcceptance("y1_st1", -60., 60., "hist_y1_st1", "; y1_st1 [cm]; normalized to unity [a.u.]");
+    GetAcceptance("y2_st1", -60., 60., "hist_y2_st1", "; y2_st1 [cm]; normalized to unity [a.u.]");
+
+    GetAcceptance("x1_st3", -50., 110., "hist_x1_st3", "; x1_st1 [cm]; normalized to unity [a.u.]");
+    GetAcceptance("x2_st3", -110., 100., "hist_x2_st1", "; x2_st1 [cm]; normalized to unity [a.u.]");
+    GetAcceptance("y1_st3", -150., 150., "hist_y1_st3", "; y1_st3 [cm]; normalized to unity [a.u.]");
+    GetAcceptance("y2_st3", -150., 150., "hist_y2_st3", "; y2_st3 [cm]; normalized to unity [a.u.]");
 }
