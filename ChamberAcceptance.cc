@@ -14,7 +14,7 @@
 
 using namespace std;
 
-void GetAcceptance(TStrig var_name, double xmin, double xmax, TString hist_name, TString hist_title)
+void GetAcceptance(TString var_name, double xmin, double xmax, TString hist_name, TString hist_title)
 {
     TString McutsTemp = chuckCutsPositive_2111v42_tmp && chuckCutsNegative_2111v42_tmp && chuckCutsDimuon_2111v42 && physicsCuts_noMassCut_2111v42_tmp && occCuts_2111v42_Run56 && jPsiCut_MC;
 
