@@ -76,12 +76,12 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString hist_name
 void ChamberAcceptance()
 {
     GetAcceptance("x1_st1", -30., 20., "hist_x1_st1", "; x1_st1 [cm]; normalized to unity [a.u.]");
-    GetAcceptance("x2_st1", -20., 50., "hist_x2_st1", "; x2_st1 [cm]; normalized to unity [a.u.]");
+    GetAcceptance("x2_st1", -30., 30., "hist_x2_st1", "; x2_st1 [cm]; normalized to unity [a.u.]");
     GetAcceptance("y1_st1", -60., 60., "hist_y1_st1", "; y1_st1 [cm]; normalized to unity [a.u.]");
     GetAcceptance("y2_st1", -60., 60., "hist_y2_st1", "; y2_st1 [cm]; normalized to unity [a.u.]");
 
-    GetAcceptance("x1_st3", -50., 110., "hist_x1_st3", "; x1_st3 [cm]; normalized to unity [a.u.]");
-    GetAcceptance("x2_st3", -110., 100., "hist_x2_st3", "; x2_st3 [cm]; normalized to unity [a.u.]");
+    GetAcceptance("x1_st3", 0., 150., "hist_x1_st3", "; x1_st3 [cm]; normalized to unity [a.u.]");
+    GetAcceptance("x2_st3", -150., 0., "hist_x2_st3", "; x2_st3 [cm]; normalized to unity [a.u.]");
     GetAcceptance("y1_st3", -150., 150., "hist_y1_st3", "; y1_st3 [cm]; normalized to unity [a.u.]");
     GetAcceptance("y2_st3", -150., 150., "hist_y2_st3", "; y2_st3 [cm]; normalized to unity [a.u.]");
 }
