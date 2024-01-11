@@ -36,11 +36,13 @@ void DrawEfficiency(TString input_file, TString var_cut, TString can_name)
 
     auto can = new TCanvas();
 
+    /*
     hAcc->Draw("E1");
     can->SaveAs("imgs/acc.png");
 
     hReco->Draw("E1");
     can->SaveAs("imgs/reco.png");
+    */
 
     effi->Draw("APE1");
     can->Update();
