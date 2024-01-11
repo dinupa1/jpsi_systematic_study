@@ -43,11 +43,14 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString hist_name
     auto hMix = new TH1D(hMix_name.Data(), hist_title.Data(), 50, xmin, xmax);
     auto hJpsi = new TH1D(hJpsi_name.Data(), hist_title.Data(), 50, xmin, xmax);
 
+    hReal->Sumw2();
+    hMix->Sumw2();
+    hJpsi->Sumw2();
+
     tree_real->Project(hReal_name.Data(), var_name.Data(), McutsTempR);
     //tree_mix->Project(hMix_name.Data(), var_name.Data(), McutsTempR);
     tree_mc->Project(hJpsi_name.Data(), var_name.Data(), "ReWeight"*McutsTemp);
 
-    //hReal->Sumw2();
     //hReal->Add(hMix, -1);
 
     hReal->Scale(1./hReal->Integral());
