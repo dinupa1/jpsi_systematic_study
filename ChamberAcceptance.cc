@@ -79,7 +79,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax)
     hReal->SetMaximum(1.5* hReal->GetMaximum());
     hReal->Draw("E1");
     hJpsi->Draw("SAME E1");
-
+    can->Update();
     can->SaveAs(save_name.Data());
 
 
@@ -129,6 +129,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax)
     TString ratio_save = Form("imgs/ratio_%s.png", var_name.Data());
 
     ratio_plot->Draw("E1");
+    can->Update();
     can->SaveAs(ratio_save.Data());
 
     /*
@@ -141,6 +142,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax)
     TString fractional_save = Form("imgs/fractional_%s.png", var_name.Data());
 
     fractional_plot->Draw("E1");
+    can->Update();
     can->SaveAs(fractional_save.Data());
 
 }
