@@ -109,8 +109,11 @@ void GetAcceptance(TString var_name, double xmin, double xmax)
 
         double ratio_e2 = (1./real_c)* (1./real_c)* mc_e* mc_e + (mc_c/(real_c* real_c))* (mc_c/(real_c* real_c))* real_e* real_e;
 
-        ratio_plot->SetBinContent(i+1, mc_c/real_c);
-        ratio_plot->SetBinError(i+1, sqrt(ratio_e2));
+        if(sqrt(ratio_e2) >= 0.0)
+        {
+            ratio_plot->SetBinContent(i+1, mc_c/real_c);
+            ratio_plot->SetBinError(i+1, sqrt(ratio_e2));
+        }
 
         /*
          * Fractional deviation
@@ -118,12 +121,15 @@ void GetAcceptance(TString var_name, double xmin, double xmax)
 
         double fraction_e2 = (real_c/(mc_c * mc_c))* (real_c/(mc_c * mc_c))* real_e* real_e + (1./real_c)* (1./real_c)* mc_e* mc_e;
 
-        fractional_plot->SetBinContent(i+1, (real_c - mc_c)/mc_c);
-        fractional_plot->SetBinError(i+1, sqrt(fraction_e2));
+        if(sqrt(fraction_e2) > 0.)
+        {
+            fractional_plot->SetBinContent(i+1, (real_c - mc_c)/mc_c);
+            fractional_plot->SetBinError(i+1, sqrt(fraction_e2));
+        }
 
-        TString out_data = Form("---> ratio = %.3f +/- %.3f, fraction = %.3f +/- %.3f", mc_c/real_c, sqrt(ratio_e2), (real_c - mc_c)/mc_c, sqrt(fraction_e2));
-
-        cout << out_data.Data() << endl;
+//         TString out_data = Form("---> ratio = %.3f +/- %.3f, fraction = %.3f +/- %.3f", mc_c/real_c, sqrt(ratio_e2), (real_c - mc_c)/mc_c, sqrt(fraction_e2));
+//
+//         cout << out_data.Data() << endl;
 
     }
 
