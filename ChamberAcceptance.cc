@@ -97,7 +97,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax)
     TString fractional_name = Form("frac_%s", var_name.Data());
     TString fractional_title = Form("Fractional deviation; %s [cm]; #frac{Real data - MC data}{MC data}", var_name.Data());
 
-    auto fractional_plot = new TH1D(fractional_name.Data(), fractional_title.Data(), nbins, xmin, xmax)
+    auto fractional_plot = new TH1D(fractional_name.Data(), fractional_title.Data(), nbins, xmin, xmax);
 
     for(int i = 0; i < nbins; i++)
     {
