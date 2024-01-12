@@ -16,9 +16,11 @@ using namespace std;
 
 void GetAcceptance(TString var_name, double xmin, double xmax, TString hist_name, TString hist_title)
 {
-    TString McutsTemp = chuckCutsPositive_2111v42_tmp && chuckCutsNegative_2111v42_tmp && chuckCutsDimuon_2111v42 && physicsCuts_noMassCut_2111v42_tmp && occCuts_2111v42_Run56 && jPsiCut_MC;
+    TString MC_cuts = chuckCutsPositive_2111v42_tmp && chuckCutsNegative_2111v42_tmp && chuckCutsDimuon_2111v42 && physicsCuts_noMassCut_2111v42_tmp && occCuts_2111v42_Run56 && jPsiCut_MC;
 
-    TString McutsTempR = chuckCutsPositive_2111v42_tmp && chuckCutsNegative_2111v42_tmp && chuckCutsDimuon_2111v42 && physicsCuts_noMassCut_2111v42_tmp && occCuts_2111v42_Run56 && jPsiCut;
+    TString Real_cuts = chuckCutsPositive_2111v42_tmp && chuckCutsNegative_2111v42_tmp && chuckCutsDimuon_2111v42 && physicsCuts_noMassCut_2111v42_tmp && occCuts_2111v42_Run56 && jPsiCut;
+
+    TString Mix_cuts = chuckCutsPositive_2111v42_tmp && chuckCutsNegative_2111v42_tmp && chuckCutsDimuon_2111v42 && physicsCuts_noMassCut_2111v42_tmp && jPsiCut;
 
 
     TString real_data = "/seaquest/users/chleung/rootfiles/run56_2111v42_tmp_noPhys_D0.root";
@@ -39,19 +41,19 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString hist_name
     TString hMix_name = Form("%s_mix", hist_name.Data());
     TString hJpsi_name = Form("%s_mc", hist_name.Data());
 
-    auto hReal = new TH1D(hReal_name.Data(), hist_title.Data(), 20, xmin, xmax);
-    auto hMix = new TH1D(hMix_name.Data(), hist_title.Data(), 20, xmin, xmax);
-    auto hJpsi = new TH1D(hJpsi_name.Data(), hist_title.Data(), 20, xmin, xmax);
+    auto hReal = new TH1D(hReal_name.Data(), hist_title.Data(), 50, xmin, xmax);
+    auto hMix = new TH1D(hMix_name.Data(), hist_title.Data(), 50, xmin, xmax);
+    auto hJpsi = new TH1D(hJpsi_name.Data(), hist_title.Data(), 50, xmin, xmax);
 
     hReal->Sumw2();
     hMix->Sumw2();
     hJpsi->Sumw2();
 
-    tree_real->Project(hReal_name.Data(), var_name.Data(), McutsTempR);
-    //tree_mix->Project(hMix_name.Data(), var_name.Data(), McutsTempR);
-    tree_mc->Project(hJpsi_name.Data(), var_name.Data(), "ReWeight"*McutsTemp);
+    tree_real->Project(hReal_name.Data(), var_name.Data(), Real_cuts);
+    tree_mix->Project(hMix_name.Data(), var_name.Data(), Mix_cuts);
+    tree_mc->Project(hJpsi_name.Data(), var_name.Data(), "ReWeight"*MC_cuts);
 
-    //hReal->Add(hMix, -1);
+    hReal->Add(hMix, -1);
 
     hReal->Scale(1./hReal->Integral());
     hJpsi->Scale(1./hJpsi->Integral());
@@ -66,6 +68,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString hist_name
 
     auto can = new TCanvas();
 
+    hReal->SetMaximum(1.5* hReal->GetMaximum());
     hReal->Draw("E1");
     hJpsi->Draw("SAME E1");
 
