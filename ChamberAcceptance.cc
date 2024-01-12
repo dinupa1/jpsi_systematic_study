@@ -121,6 +121,10 @@ void GetAcceptance(TString var_name, double xmin, double xmax)
         fractional_plot->SetBinContent(i+1, (real_c - mc_c)/mc_c);
         fractional_plot->SetBinError(i+1, sqrt(fraction_e2));
 
+        TString out_data = Form("---> ratio = %.3f +/- %.3f, fraction = %.3f +/- %.3f", mc_c/real_c, sqrt(ratio_e2), (real_c - mc_c)/mc_c, sqrt(fraction_e2));
+
+        cout << out_data.Data() << endl;
+
     }
 
     ratio_plot->SetMarkerColor(kViolet);
