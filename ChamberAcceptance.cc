@@ -109,8 +109,8 @@ void GetAcceptance(TString var_name, double xmin, double xmax)
 
         double ratio_e2 = (1./real_c)* (1./real_c)* mc_e* mc_e + (mc_c/(real_c* real_c))* (mc_c/(real_c* real_c))* real_e* real_e;
 
-        ratio_plot->GetBinContent(i+1, mc_c/real_c);
-        ratio_plot->GetBinError(i+1, sqrt(ratio_e2));
+        ratio_plot->SetBinContent(i+1, mc_c/real_c);
+        ratio_plot->SetBinError(i+1, sqrt(ratio_e2));
 
         /*
          * Fractional deviation
@@ -118,8 +118,8 @@ void GetAcceptance(TString var_name, double xmin, double xmax)
 
         double fraction_e2 = (real_c/(mc_c * mc_c))* (real_c/(mc_c * mc_c))* real_e* real_e + (1./real_c)* (1./real_c)* mc_e* mc_e;
 
-        fractional_plot->GetBinContent(i+1, (real_c - mc_c)/mc_c);
-        fractional_plot->GetBinError(i+1, sqrt(fraction_e2));
+        fractional_plot->SetBinContent(i+1, (real_c - mc_c)/mc_c);
+        fractional_plot->SetBinError(i+1, sqrt(fraction_e2));
 
     }
 
