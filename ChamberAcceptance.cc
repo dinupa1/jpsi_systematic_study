@@ -6,6 +6,7 @@
 #include<TH1D.h>
 #include<TCanvas.h>
 #include<TString.h>
+#include<TText.h>
 #include<TMath.h>
 #include<TEfficiency.h>
 #include<iostream>
@@ -16,6 +17,8 @@ using namespace std;
 
 void GetAcceptance(TString var_name, double xmin, double xmax)
 {
+    gStyle->SetOptStat(0);
+
     int nbins = 50;
 
     auto can = new TCanvas();
@@ -80,6 +83,17 @@ void GetAcceptance(TString var_name, double xmin, double xmax)
     hReal->Draw("E1");
     hJpsi->Draw("SAME E1");
     can->Update();
+
+    TString fiducial_cuts = Form("FWHM = %.1f", hJpsi->GetRMS());
+
+    TText* t = new TText(.2, .95, fiducial_cuts.Data());
+    t->SetNDC();
+    t->SetTextAlign(22);
+    t->SetTextColor(kRed+2);
+    t->SetTextFont(43);
+    t->SetTextSize(20);
+    t->Draw();
+
     can->SaveAs(save_name.Data());
 
 
@@ -127,11 +141,11 @@ void GetAcceptance(TString var_name, double xmin, double xmax)
             fractional_plot->SetBinError(i+1, sqrt(fraction_e2));
         }
 
-        if(mc_c/real_c < 0.2 && abs((real_c - mc_c)/mc_c) > 2.0)
-        {
-            TString out_data = Form("---> %s limits = %f ", var_name.Data(), hReal->GetBinCenter(i+1));
-            cout << out_data.Data() << endl;
-        }
+//         if(mc_c/real_c < 0.2 && abs((real_c - mc_c)/mc_c) > 2.0)
+//         {
+//             TString out_data = Form("---> %s limits = %f ", var_name.Data(), hReal->GetBinCenter(i+1));
+//             cout << out_data.Data() << endl;
+//         }
 
     }
 
