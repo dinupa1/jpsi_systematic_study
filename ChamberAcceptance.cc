@@ -93,7 +93,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax)
     t->SetTextFont(43);
     t->SetTextSize(20);
     t->Draw();
-
+    can->Update();
     can->SaveAs(save_name.Data());
 
 
