@@ -84,7 +84,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax)
     hJpsi->Draw("SAME E1");
     can->Update();
 
-    TString fiducial_cuts = Form("FWHM = %.1f", 2.355*hJpsi->GetRMS());
+    TString fiducial_cuts = Form("Mean = %.1f ,FWHM = %.1f", hJpsi->GetMean(),  2.355*hJpsi->GetRMS());
 
     TText* t = new TText(.2, .95, fiducial_cuts.Data());
     t->SetNDC();
