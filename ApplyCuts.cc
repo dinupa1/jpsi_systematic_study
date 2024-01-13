@@ -25,14 +25,14 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
 
     TString Mix_cuts = Form("%s && %s && %s && %s && %s && %s", chuckCutsPositive_2111v42_tmp.Data(), chuckCutsNegative_2111v42_tmp.Data(), chuckCutsDimuon_2111v42.Data(), physicsCuts_noMassCut_2111v42_tmp.Data(), jPsiCut.Data(), kin_cuts.Data());
 
-    auto df_real = new RDataFrame("Tree", real_data.Data());
-    auto df_real1 = df_real->Filter(Real_cuts.Data());
+    RDataFrame df_real("Tree", real_data.Data());
+    auto df_real1 = df_real.Filter(Real_cuts.Data());
 
-    auto df_mix = new RDataFrame("Tree", mix_data.Data());
-    auto df_mix1 = df_mix->Filter(Mix_cuts.Data());
+    RDataFrame df_mix("Tree", mix_data.Data());
+    auto df_mix1 = df_mix.Filter(Mix_cuts.Data());
 
-    auto df_mc = new RDataFrame("Tree", LH2_jpsi_data.Data());
-    auto df_mc1 = df_mc->Filter(MC_cuts.Data());
+    RDataFrame df_mix("Tree", LH2_jpsi_data.Data());
+    auto df_mc1 = df_mc.Filter(MC_cuts.Data());
 
     TString hReal_name = Form("hist_%s_real", hist_name.Data());
     TString hMix_name = Form("hist_%s_mix", hist_name.Data());
@@ -40,7 +40,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
 
     TString hist_title = Form("; %s [cm]; normalized to unity [a.u.]", var_name.Data());
 
-    auto hReal = df_real1->Histo1D({hReal_name.Data(), hist_title.Data(), nbins, xmin, xmax}, var_name.Data());
+    auto hReal = df_real1.Histo1D({hReal_name.Data(), hist_title.Data(), nbins, xmin, xmax}, var_name.Data());
 
     auto can = new TCanvas();
 
