@@ -141,7 +141,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax)
             fractional_plot->SetBinError(i+1, sqrt(fraction_e2));
         }
 
-        if((mc_c/real_c < 0.2|| mc_c/real_c > 1.5) && abs((real_c - mc_c)/mc_c) > 1.5)
+        if((mc_c/real_c < 0.6|| mc_c/real_c > 1.4) && abs((real_c - mc_c)/mc_c) > 0.5)
         {
             TString out_data = Form("---> %s limits = %f ", var_name.Data(), hReal->GetBinCenter(i+1));
             cout << out_data.Data() << endl;
