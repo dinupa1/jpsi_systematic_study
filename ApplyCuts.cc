@@ -31,7 +31,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     RDataFrame df_mix("Tree", mix_data.Data());
     auto df_mix1 = df_mix.Filter(Mix_cuts.Data());
 
-    RDataFrame df_mix("Tree", LH2_jpsi_data.Data());
+    RDataFrame df_mc("Tree", LH2_jpsi_data.Data());
     auto df_mc1 = df_mc.Filter(MC_cuts.Data());
 
     TString hReal_name = Form("hist_%s_real", hist_name.Data());
