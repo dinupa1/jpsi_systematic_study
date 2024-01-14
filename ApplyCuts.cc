@@ -74,28 +74,30 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     double mean = hMC->GetMean();
     double fwhm = 2.355*hMC->GetRMS();
 
-    TString fiducial_cuts = Form("Mean = %.1f ,FWHM = %.1f", mean, fwhm);
+    TString fiducial_cuts = FormForm("--> Fiducial cuts in %s for 5s = %.1f < %s < %.1f", kin_cuts.Data(), fiducial_min, var_name.Data(), fiducial_max);
+
+    fiducial_min = mean - fwhm;
+    fiducial_mac = mean + fwhm;
 
     TText* t = new TText(.2, .95, fiducial_cuts.Data());
     t->SetNDC();
     t->SetTextAlign(22);
     t->SetTextColor(kRed+2);
     t->SetTextFont(43);
-    t->SetTextSize(20);
+    t->SetTextSize(15);
     t->Draw();
     can->Update();
 
-    TLine* l_min = new TLine(mean - 1.5* fwhm, 0., mean - 1.5* fwhm, 0.5* ymax);
+    TLine* l_min = new TLine(fiducial_min, hReal->GetBinContent(hReal->GetMinimumBin()), ficucial_min,  hReal->GetBinContent(hReal->GetMaximumBin()));
     l_min->SetLineColor(kRed);
     l_min->Draw();
-    TLine* l_max = new TLine(mean + 1.5* fwhm, 0., mean + 1.5* fwhm, 0.5* ymax);
+    TLine* l_max = new TLine(fiducial_max, hReal->GetBinContent(hReal->GetMinimumBin()), ficucial_max,  hReal->GetBinContent(hReal->GetMaximumBin()));
     l_max->SetLineColor(kRed);
     l_max->Draw();
     can->Update();
     can->SaveAs(hist_save.Data());
 
-    TString outputs = Form("--> Fiducial cuts in %s = %.1f < %s < %.1f", kin_cuts.Data(), mean - 1.5* fwhm, var_name.Data(), mean + 1.5* fwhm);
-    cout << outputs.Data() << endl;
+    cout << fiducial_cuts.Data() << endl;
 
 
     /*
@@ -152,10 +154,10 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     ratio_plot->Draw("E1");
     can->Update();
 
-    TLine* l_min1 = new TLine(mean - 1.5* fwhm, 0., mean - 1.5* fwhm, 2.0);
+    TLine* l_min1 = new TLine(fiducial_min, ratio_plot->GetBinContent(ratio_plot->GetMinimumBin()), ficucial_min,  ratio_plot->GetBinContent(ratio_plot->GetMaximumBin()));
     l_min1->SetLineColor(kRed);
     l_min1->Draw();
-    TLine* l_max1 = new TLine(mean + 1.5* fwhm, 0., mean + 1.5* fwhm, 2.0);
+    TLine* l_max1 = new TLine(fiducial_max, ratio_plot->GetBinContent(ratio_plot->GetMinimumBin()), ficucial_max,  ratio_plot->GetBinContent(ratio_plot->GetMaximumBin()));
     l_max1->SetLineColor(kRed);
     l_max1->Draw();
     can->Update();
@@ -173,10 +175,10 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     fractional_plot->Draw("E1");
     can->Update();
 
-    TLine* l_min2 = new TLine(mean - 1.5* fwhm, -2., mean - 1.5* fwhm, 2.);
+    TLine* l_min2 = new TLine(fiducial_min, fractional_plot->GetBinContent(fractional_plot->GetMinimumBin()), ficucial_min,  fractional_plot->GetBinContent(fractional_plot->GetMaximumBin()));
     l_min2->SetLineColor(kRed);
     l_min2->Draw();
-    TLine* l_max2 = new TLine(mean + 1.5* fwhm, -2., mean + 1.5* fwhm, 2.);
+    TLine* l_max2 = new TLine(fiducial_max, fractional_plot->GetBinContent(fractional_plot->GetMinimumBin()), ficucial_max,  fractional_plot->GetBinContent(fractional_plot->GetMaximumBin()));
     l_max2->SetLineColor(kRed);
     l_max2->Draw();
     can->Update();
@@ -185,6 +187,9 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
 
 void ApplyCuts()
 {
+    /*
+     * 1st xF bin LH2 data Jpsi
+     */
     GetAcceptance("x1_st1", -20., 15., "0.4 < xF && xF < 0.6", "LH2_jpsi_x1_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
     GetAcceptance("x2_st1", -30., 30., "0.4 < xF && xF < 0.6", "LH2_jpsi_x2_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
     GetAcceptance("y1_st1", -60., 60., "0.4 < xF && xF < 0.6", "LH2_jpsi_y1_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
@@ -194,4 +199,17 @@ void ApplyCuts()
     GetAcceptance("x2_st3", -150., 0., "0.4 < xF && xF < 0.6", "LH2_jpsi_x2_st3_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
     GetAcceptance("y1_st3", -150., 150., "0.4 < xF && xF < 0.6", "LH2_jpsi_y1_st3_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
     GetAcceptance("y2_st3", -150., 150., "0.4 < xF && xF < 0.6", "LH2_jpsi_y2_st3_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+
+    /*
+     * 2nd xF bin LH2 data Jpsi
+     */
+    GetAcceptance("x1_st1", -20., 15., "0.6 < xF && xF < 0.6", "LH2_jpsi_x1_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("x2_st1", -30., 30., "0.6 < xF && xF < 0.6", "LH2_jpsi_x2_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("y1_st1", -60., 60., "0.6 < xF && xF < 0.6", "LH2_jpsi_y1_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("y2_st1", -60., 60., "0.6 < xF && xF < 0.6", "LH2_jpsi_y2_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+
+    GetAcceptance("x1_st3", 0., 150., "0.6 < xF && xF < 0.65", "LH2_jpsi_x1_st3_xF1", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("x2_st3", -150., 0., "0.6 < xF && xF < 0.65", "LH2_jpsi_x2_st3_xF1", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("y1_st3", -150., 150., "0.6 < xF && xF < 0.65", "LH2_jpsi_y1_st3_xF1", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("y2_st3", -150., 150., "0.6 < xF && xF < 0.65", "LH2_jpsi_y2_st3_xF1", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 }
