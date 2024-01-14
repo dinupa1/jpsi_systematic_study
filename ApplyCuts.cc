@@ -12,7 +12,7 @@ using namespace ROOT;
 
 TString real_data = "/seaquest/users/chleung/rootfiles/run56_2111v42_tmp_noPhys_D0.root";
 TString mix_data = "/seaquest/users/chleung/rootfiles/mix_FPGA4_run56_2111v42_tmp_noPhys.root";
-TString LH2_jpsi_data = "/seaquest/users/chleung/pT_ReWeight/mc_jpsi_LH2_M027_S002_clean_occ_pTxFweight_v2.root";
+TString LH2_jpsi_data = "/seaquest/users/chleung/pT_ReWeight/mc_jpsi_LH2_M027_S002_messy_occ_pTxFweight_v2.root";
 
 // jPsiCut_MC
 
@@ -85,16 +85,16 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     t->Draw();
     can->Update();
 
-    TLine* l_min = new TLine(mean - 1.5* fwhm, -2., mean - 1.5* fwhm, 2.0);
+    TLine* l_min = new TLine(mean - 1.5* fwhm, 0., mean - 1.5* fwhm, 0.5* ymax);
     l_min->SetLineColor(kRed);
     l_min->Draw();
-    TLine* l_max = new TLine(mean + 1.5* fwhm, -2., mean + 1.5* fwhm, 2.0);
+    TLine* l_max = new TLine(mean + 1.5* fwhm, 0., mean + 1.5* fwhm, 0.5* ymax);
     l_max->SetLineColor(kRed);
     l_max->Draw();
     can->Update();
     can->SaveAs(hist_save.Data());
 
-    TString outputs = Form("--> Fiducial cuts = %.1f < %s < %.1f", mean - 1.5* fwhm, var_name.Data(), mean + 1.5* fwhm);
+    TString outputs = Form("--> Fiducial cuts in %s = %.1f < %s < %.1f", kin_cuts.Data(), mean - 1.5* fwhm, var_name.Data(), mean + 1.5* fwhm);
     cout << outputs.Data() << endl;
 
 
@@ -151,8 +151,13 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
 
     ratio_plot->Draw("E1");
     can->Update();
-    l_min->Draw();
-    l_max->Draw();
+
+    TLine* l_min1 = new TLine(mean - 1.5* fwhm, 0., mean - 1.5* fwhm, 2.0);
+    l_min1->SetLineColor(kRed);
+    l_min1->Draw();
+    TLine* l_max1 = new TLine(mean + 1.5* fwhm, 0., mean + 1.5* fwhm, 2.0);
+    l_max1->SetLineColor(kRed);
+    l_max1->Draw();
     can->Update();
     can->SaveAs(ratio_save.Data());
 
@@ -166,9 +171,14 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     TString fractional_save = Form("imgs/fractional_%s.png", hist_name.Data());
 
     fractional_plot->Draw("E1");
-    l_min->Draw();
-    l_max->Draw();
     can->Update();
+
+    TLine* l_min2 = new TLine(mean - 1.5* fwhm, -2., mean - 1.5* fwhm, -2.);
+    l_min2->SetLineColor(kRed);
+    l_min2->Draw();
+    TLine* l_max2 = new TLine(mean + 1.5* fwhm, -2., mean + 1.5* fwhm, -2.);
+    l_max2->SetLineColor(kRed);
+    l_max2->Draw();
     can->Update();
     can->SaveAs(fractional_save.Data());
 }
@@ -176,4 +186,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
 void ApplyCuts()
 {
     GetAcceptance("x1_st1", -20., 15., "0.4 < xF && xF < 0.6", "LH2_jpsi_x1_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC);
+//     GetAcceptance("x2_st1", -20., 15., "0.4 < xF && xF < 0.6", "LH2_jpsi_x2_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC);
+//     GetAcceptance("y1_st1", -20., 15., "0.4 < xF && xF < 0.6", "LH2_jpsi_y1_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC);
+//     GetAcceptance("y2_st1", -20., 15., "0.4 < xF && xF < 0.6", "LH2_jpsi_y2_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC);
 }
