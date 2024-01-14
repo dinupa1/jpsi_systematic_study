@@ -88,10 +88,10 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     t->Draw();
     can->Update();
 
-    TLine* l_min = new TLine(fiducial_min, hReal->GetBinContent(hReal->GetMinimumBin()), ficucial_min,  hReal->GetBinContent(hReal->GetMaximumBin()));
+    TLine* l_min = new TLine(fiducial_min, hReal->GetBinContent(hReal->GetMinimumBin()), fiducial_min,  hReal->GetBinContent(hReal->GetMaximumBin()));
     l_min->SetLineColor(kRed);
     l_min->Draw();
-    TLine* l_max = new TLine(fiducial_max, hReal->GetBinContent(hReal->GetMinimumBin()), ficucial_max,  hReal->GetBinContent(hReal->GetMaximumBin()));
+    TLine* l_max = new TLine(fiducial_max, hReal->GetBinContent(hReal->GetMinimumBin()), fiducial_max,  hReal->GetBinContent(hReal->GetMaximumBin()));
     l_max->SetLineColor(kRed);
     l_max->Draw();
     can->Update();
@@ -154,10 +154,10 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     ratio_plot->Draw("E1");
     can->Update();
 
-    TLine* l_min1 = new TLine(fiducial_min, ratio_plot->GetBinContent(ratio_plot->GetMinimumBin()), ficucial_min,  ratio_plot->GetBinContent(ratio_plot->GetMaximumBin()));
+    TLine* l_min1 = new TLine(fiducial_min, ratio_plot->GetBinContent(ratio_plot->GetMinimumBin()), fiducial_min,  ratio_plot->GetBinContent(ratio_plot->GetMaximumBin()));
     l_min1->SetLineColor(kRed);
     l_min1->Draw();
-    TLine* l_max1 = new TLine(fiducial_max, ratio_plot->GetBinContent(ratio_plot->GetMinimumBin()), ficucial_max,  ratio_plot->GetBinContent(ratio_plot->GetMaximumBin()));
+    TLine* l_max1 = new TLine(fiducial_max, ratio_plot->GetBinContent(ratio_plot->GetMinimumBin()), fiducial_max,  ratio_plot->GetBinContent(ratio_plot->GetMaximumBin()));
     l_max1->SetLineColor(kRed);
     l_max1->Draw();
     can->Update();
@@ -175,10 +175,10 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     fractional_plot->Draw("E1");
     can->Update();
 
-    TLine* l_min2 = new TLine(fiducial_min, fractional_plot->GetBinContent(fractional_plot->GetMinimumBin()), ficucial_min,  fractional_plot->GetBinContent(fractional_plot->GetMaximumBin()));
+    TLine* l_min2 = new TLine(fiducial_min, fractional_plot->GetBinContent(fractional_plot->GetMinimumBin()), fiducial_min,  fractional_plot->GetBinContent(fractional_plot->GetMaximumBin()));
     l_min2->SetLineColor(kRed);
     l_min2->Draw();
-    TLine* l_max2 = new TLine(fiducial_max, fractional_plot->GetBinContent(fractional_plot->GetMinimumBin()), ficucial_max,  fractional_plot->GetBinContent(fractional_plot->GetMaximumBin()));
+    TLine* l_max2 = new TLine(fiducial_max, fractional_plot->GetBinContent(fractional_plot->GetMinimumBin()), fiducial_max,  fractional_plot->GetBinContent(fractional_plot->GetMaximumBin()));
     l_max2->SetLineColor(kRed);
     l_max2->Draw();
     can->Update();
