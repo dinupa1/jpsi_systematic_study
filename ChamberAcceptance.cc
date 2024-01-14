@@ -32,7 +32,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     TString Mix_cuts = Form("%s && %s && %s && %s && %s && %s && %s", chuckCutsPositive_2111v42_tmp.Data(), chuckCutsNegative_2111v42_tmp.Data(), chuckCutsDimuon_2111v42.Data(), physicsCuts_noMassCut_2111v42_tmp.Data(), particle.Data(), kin_cuts.Data(), "(targetPos==1 | targetPos==3)");
 
     RDataFrame df_real("Tree", real_data.Data());
-    auto df_real0 = def_real.Define("pT", "sqrt(dpx* dpx + dpy* dpy)");
+    auto df_real0 = df_real.Define("pT", "sqrt(dpx* dpx + dpy* dpy)");
     auto df_real1 = df_real0.Filter(Real_cuts.Data());
 
     RDataFrame df_mix("Tree", mix_data.Data());
@@ -314,7 +314,7 @@ void ChamberAcceptance()
         GetAcceptance("y2_st1", -60., 60., pT_cut, pT_hist4, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
 
         TString pT_hist5 = Form("LD2_jpsi_x1_st3_pT%d", i);
-        pTAcceptance("x1_st3", 0., 150., pT_cut, pT_hist5, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+        GetAcceptance("x1_st3", 0., 150., pT_cut, pT_hist5, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
 
         TString pT_hist6 = Form("LD2_jpsi_x2_st3_pT%d", i);
         GetAcceptance("x2_st3", -150., 0., pT_cut, pT_hist6, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
