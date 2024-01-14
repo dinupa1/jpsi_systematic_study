@@ -49,7 +49,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
 
     hReal->Sumw2();
     hMix->Sumw2();
-    hJMC->Sumw2();
+    hMC->Sumw2();
 
     hReal->Add(hMix.GetPtr(), -1);
 
@@ -61,8 +61,8 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     hMC->SetMarkerColor(kSpring);
     hMC->SetMarkerStyle(20);
 
-     double ymax = 1.5* hReal->GetMaximum();
-     hReal->SetMaximum(ymax);
+    double ymax = 1.5* hReal->GetMaximum();
+    hReal->SetMaximum(ymax);
 
     auto can = new TCanvas();
 
