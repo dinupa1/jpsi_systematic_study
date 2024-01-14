@@ -18,7 +18,7 @@ TString LH2_jpsi_data = "/seaquest/users/chleung/pT_ReWeight/mc_jpsi_LH2_M027_S0
 
 int nbins = 50;
 
-void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts, TString hist_name, TString target, TString particle, TString particle_MC)
+void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts, TString hist_name, TString target, TString particle, TString particle_MC, TString MC_data)
 {
     TString MC_cuts = Form("%s && %s && %s && %s && %s && %s && %s", chuckCutsPositive_2111v42_tmp.Data(), chuckCutsNegative_2111v42_tmp.Data(), chuckCutsDimuon_2111v42.Data(), physicsCuts_noMassCut_2111v42_tmp.Data(), occCuts_2111v42_Run56.Data(), particle_MC.Data(), kin_cuts.Data());
 
@@ -32,7 +32,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     RDataFrame df_mix("Tree", mix_data.Data());
     auto df_mix1 = df_mix.Filter(Mix_cuts.Data());
 
-    RDataFrame df_mc("Tree", LH2_jpsi_data.Data());
+    RDataFrame df_mc("Tree", MC_data.Data());
     auto df_mc1 = df_mc.Filter(MC_cuts.Data());
 
     TString hReal_name = Form("hist_%s_real", hist_name.Data());
@@ -173,10 +173,10 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     fractional_plot->Draw("E1");
     can->Update();
 
-    TLine* l_min2 = new TLine(mean - 1.5* fwhm, -2., mean - 1.5* fwhm, -2.);
+    TLine* l_min2 = new TLine(mean - 1.5* fwhm, -2., mean - 1.5* fwhm, 2.);
     l_min2->SetLineColor(kRed);
     l_min2->Draw();
-    TLine* l_max2 = new TLine(mean + 1.5* fwhm, -2., mean + 1.5* fwhm, -2.);
+    TLine* l_max2 = new TLine(mean + 1.5* fwhm, -2., mean + 1.5* fwhm, 2.);
     l_max2->SetLineColor(kRed);
     l_max2->Draw();
     can->Update();
@@ -185,8 +185,13 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
 
 void ApplyCuts()
 {
-    GetAcceptance("x1_st1", -20., 15., "0.4 < xF && xF < 0.6", "LH2_jpsi_x1_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC);
-//     GetAcceptance("x2_st1", -20., 15., "0.4 < xF && xF < 0.6", "LH2_jpsi_x2_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC);
-//     GetAcceptance("y1_st1", -20., 15., "0.4 < xF && xF < 0.6", "LH2_jpsi_y1_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC);
-//     GetAcceptance("y2_st1", -20., 15., "0.4 < xF && xF < 0.6", "LH2_jpsi_y2_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC);
+    GetAcceptance("x1_st1", -20., 15., "0.4 < xF && xF < 0.6", "LH2_jpsi_x1_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("x2_st1", -30., 30., "0.4 < xF && xF < 0.6", "LH2_jpsi_x2_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("y1_st1", -60., 60., "0.4 < xF && xF < 0.6", "LH2_jpsi_y1_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("y2_st1", -60., 60., "0.4 < xF && xF < 0.6", "LH2_jpsi_y2_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+
+    GetAcceptance("x1_st3", 0., 150., "0.4 < xF && xF < 0.6", "LH2_jpsi_x1_st3_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("x2_st3", -150., 0., "0.4 < xF && xF < 0.6", "LH2_jpsi_x2_st3_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("y1_st3", -150., 150., "0.4 < xF && xF < 0.6", "LH2_jpsi_y1_st3_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("y2_st3", -150., 150., "0.4 < xF && xF < 0.6", "LH2_jpsi_y2_st3_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 }
