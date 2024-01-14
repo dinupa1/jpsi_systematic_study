@@ -85,10 +85,10 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     t->Draw();
     can->Update();
 
-    TLine* l_min = new TLine(mean - 1.5* fwhm, 0., mean - 1.5* fwhm, 0.5* ymax);
+    TLine* l_min = new TLine(mean - 1.5* fwhm, -2., mean - 1.5* fwhm, 2.0);
     l_min->SetLineColor(kRed);
     l_min->Draw();
-    TLine* l_max = new TLine(mean + 1.5* fwhm, 0., mean + 1.5* fwhm, 0.5* ymax);
+    TLine* l_max = new TLine(mean + 1.5* fwhm, -2., mean + 1.5* fwhm, 2.0);
     l_max->SetLineColor(kRed);
     l_max->Draw();
     can->Update();
