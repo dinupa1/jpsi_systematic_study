@@ -95,7 +95,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     can->Update();
     can->SaveAs(hist_save.Data());
 
-    TString outputs = Form("--> Fiducial cuts = %.1f < %s < %.1f", mean - 0.75* fwhm, mean + 0.75* fwhm);
+    TString outputs = Form("--> Fiducial cuts = %.1f < %s < %.1f", mean - 0.75* fwhm, var_name.Data(), mean + 0.75* fwhm);
     cout << outputs.Data() << endl;
 }
 
