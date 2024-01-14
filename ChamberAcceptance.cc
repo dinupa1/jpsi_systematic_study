@@ -13,6 +13,9 @@ using namespace ROOT;
 TString real_data = "/seaquest/users/chleung/rootfiles/run56_2111v42_tmp_noPhys_D0.root";
 TString mix_data = "/seaquest/users/chleung/rootfiles/mix_FPGA4_run56_2111v42_tmp_noPhys.root";
 TString LH2_jpsi_data = "/seaquest/users/chleung/pT_ReWeight/mc_jpsi_LH2_M027_S002_messy_occ_pTxFweight_v2.root";
+TString LD2_jpsi_data = "/seaquest/users/chleung/pT_ReWeight/mc_jpsi_LD2_M027_S002_messy_occ_pTxFweight_v2.root";
+TString LH2_psip_data = "/seaquest/users/chleung/pT_ReWeight/mc_psiprime_LH2_M027_S002_messy_occ_pTxFweight_v2.root";
+TString LD2_psip_data = "/seaquest/users/chleung/pT_ReWeight/mc_psiprime_LD2_M027_S002_messy_occ_pTxFweight_v2.root";
 
 // jPsiCut_MC
 
@@ -195,7 +198,7 @@ void pTAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts, 
 
     TString Real_cuts = Form("%s && %s && %s && %s && %s && %s && %s && %s", chuckCutsPositive_2111v42_tmp.Data(), chuckCutsNegative_2111v42_tmp.Data(), chuckCutsDimuon_2111v42.Data(), physicsCuts_noMassCut_2111v42_tmp.Data(), occCuts_2111v42_Run56.Data(), particle.Data(), kin_cuts.Data(), target.Data());
 
-    TString Mix_cuts = Form("%s && %s && %s && %s && %s && %s && %s", chuckCutsPositive_2111v42_tmp.Data(), chuckCutsNegative_2111v42_tmp.Data(), chuckCutsDimuon_2111v42.Data(), physicsCuts_noMassCut_2111v42_tmp.Data(), particle.Data(), kin_cuts.Data(), target.Data());
+    TString Mix_cuts = Form("%s && %s && %s && %s && %s && %s && %s", chuckCutsPositive_2111v42_tmp.Data(), chuckCutsNegative_2111v42_tmp.Data(), chuckCutsDimuon_2111v42.Data(), physicsCuts_noMassCut_2111v42_tmp.Data(), particle.Data(), kin_cuts.Data(), "(targetPos==1 | targetPos==3)");
 
     RDataFrame df_real("Tree", real_data.Data());
      auto df_real0 = df_real.Define("pT", "sqrt(dpx* dpx + dpy* dpy)");
@@ -365,7 +368,7 @@ void ChamberAcceptance()
     double pT_bins[6] = {0, 0.3, 0.45, 0.65, 0.9, 1.5};
 
     /*
-     * LH2 Jpsi data
+     * LH2 Jpsi plots
      */
     for(int i = 0; i < 5; i++)
     {
@@ -428,17 +431,197 @@ void ChamberAcceptance()
         pTAcceptance("y2_st3", -150., 150., pT_cut, pT_hist8, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
     }
 
+    /*
+     * LD2 jpsi plots
+     */
+    for(int i = 0; i < 5; i++)
+    {
+        /*
+         * xF bins
+         */
+        TString xF_cut = Form("%.2f < xF && xF < %.2f", xF_bins[i], xF_bins[i+1]);
+
+        TString xF_hist1 = Form("LD2_jpsi_x1_st1_xF%d", i);
+        xFAcceptance("x1_st1", -20., 15., xF_cut, xF_hist1, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+
+        TString xF_hist2 = Form("LD2_jpsi_x2_st1_xF%d", i);
+        xFAcceptance("x2_st1", -30., 30., xF_cut, xF_hist2, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+
+        TString xF_hist3 = Form("LD2_jpsi_y1_st1_xF%d", i);
+        xFAcceptance("y1_st1", -60., 60., xF_cut, xF_hist3, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+
+        TString xF_hist4 = Form("LD2_jpsi_y2_st1_xF%d", i);
+        xFAcceptance("y2_st1", -60., 60., xF_cut, xF_hist4, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+
+        TString xF_hist5 = Form("LD2_jpsi_x1_st3_xF%d", i);
+        xFAcceptance("x1_st3", 0., 150., xF_cut, xF_hist5, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+
+        TString xF_hist6 = Form("LD2_jpsi_x2_st3_xF%d", i);
+        xFAcceptance("x2_st3", -150., 0., xF_cut, xF_hist6, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+
+        TString xF_hist7 = Form("LD2_jpsi_y1_st3_xF%d", i);
+        xFAcceptance("y1_st3", -150., 150., xF_cut, xF_hist7, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+
+        TString xF_hist8 = Form("LD2_jpsi_y2_st3_xF%d", i);
+        xFAcceptance("y2_st3", -150., 150., xF_cut, xF_hist8, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+
+        /*
+         * pT bins
+         */
+        TString pT_cut = Form("%.2f < pT && pT < %.2f", pT_bins[i], pT_bins[i+1]);
+
+        TString pT_hist1 = Form("LD2_jpsi_x1_st1_pT%d", i);
+        pTAcceptance("x1_st1", -20., 15., pT_cut, pT_hist1, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+
+        TString pT_hist2 = Form("LD2_jpsi_x2_st1_pT%d", i);
+        pTAcceptance("x2_st1", -30., 30., pT_cut, pT_hist2, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+
+        TString pT_hist3 = Form("LD2_jpsi_y1_st1_pT%d", i);
+        pTAcceptance("y1_st1", -60., 60., pT_cut, pT_hist3, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+
+        TString pT_hist4 = Form("LD2_jpsi_y2_st1_pT%d", i);
+        pTAcceptance("y2_st1", -60., 60., pT_cut, pT_hist4, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+
+        TString pT_hist5 = Form("LD2_jpsi_x1_st3_pT%d", i);
+        pTAcceptance("x1_st3", 0., 150., pT_cut, pT_hist5, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+
+        TString pT_hist6 = Form("LD2_jpsi_x2_st3_pT%d", i);
+        pTAcceptance("x2_st3", -150., 0., pT_cut, pT_hist6, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+
+        TString pT_hist7 = Form("LD2_jpsi_y1_st3_pT%d", i);
+        pTAcceptance("y1_st3", -150., 150., pT_cut, pT_hist7, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+
+        TString pT_hist8 = Form("LD2_jpsi_y2_st3_pT%d", i);
+        pTAcceptance("y2_st3", -150., 150., pT_cut, pT_hist8, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
+    }
 
     /*
-     * 1st xF bin LH2 data Jpsi
+     * LH2 psip plots
      */
-//     GetAcceptance("x1_st1", -20., 15., "0.4 < xF && xF < 0.6", "LH2_jpsi_x1_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
-//     GetAcceptance("x2_st1", -30., 30., "0.4 < xF && xF < 0.6", "LH2_jpsi_x2_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
-//     GetAcceptance("y1_st1", -60., 60., "0.4 < xF && xF < 0.6", "LH2_jpsi_y1_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
-//     GetAcceptance("y2_st1", -60., 60., "0.4 < xF && xF < 0.6", "LH2_jpsi_y2_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
-//
-//     GetAcceptance("x1_st3", 0., 150., "0.4 < xF && xF < 0.6", "LH2_jpsi_x1_st3_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
-//     GetAcceptance("x2_st3", -150., 0., "0.4 < xF && xF < 0.6", "LH2_jpsi_x2_st3_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
-//     GetAcceptance("y1_st3", -150., 150., "0.4 < xF && xF < 0.6", "LH2_jpsi_y1_st3_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
-//     GetAcceptance("y2_st3", -150., 150., "0.4 < xF && xF < 0.6", "LH2_jpsi_y2_st3_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    for(int i = 0; i < 5; i++)
+    {
+        /*
+         * xF bins
+         */
+        TString xF_cut = Form("%.2f < xF && xF < %.2f", xF_bins[i], xF_bins[i+1]);
+
+        TString xF_hist1 = Form("LH2_psip_x1_st1_xF%d", i);
+        xFAcceptance("x1_st1", -20., 15., xF_cut, xF_hist1, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+
+        TString xF_hist2 = Form("LH2_psip_x2_st1_xF%d", i);
+        xFAcceptance("x2_st1", -30., 30., xF_cut, xF_hist2, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+
+        TString xF_hist3 = Form("LH2_psip_y1_st1_xF%d", i);
+        xFAcceptance("y1_st1", -60., 60., xF_cut, xF_hist3, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+
+        TString xF_hist4 = Form("LH2_psip_y2_st1_xF%d", i);
+        xFAcceptance("y2_st1", -60., 60., xF_cut, xF_hist4, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+
+        TString xF_hist5 = Form("LH2_psip_x1_st3_xF%d", i);
+        xFAcceptance("x1_st3", 0., 150., xF_cut, xF_hist5, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+
+        TString xF_hist6 = Form("LH2_psip_x2_st3_xF%d", i);
+        xFAcceptance("x2_st3", -150., 0., xF_cut, xF_hist6, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+
+        TString xF_hist7 = Form("LH2_psip_y1_st3_xF%d", i);
+        xFAcceptance("y1_st3", -150., 150., xF_cut, xF_hist7, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+
+        TString xF_hist8 = Form("LH2_psip_y2_st3_xF%d", i);
+        xFAcceptance("y2_st3", -150., 150., xF_cut, xF_hist8, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+
+        /*
+         * pT bins
+         */
+        TString pT_cut = Form("%.2f < pT && pT < %.2f", pT_bins[i], pT_bins[i+1]);
+
+        TString pT_hist1 = Form("LH2_psip_x1_st1_pT%d", i);
+        pTAcceptance("x1_st1", -20., 15., pT_cut, pT_hist1, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+
+        TString pT_hist2 = Form("LH2_psip_x2_st1_pT%d", i);
+        pTAcceptance("x2_st1", -30., 30., pT_cut, pT_hist2, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+
+        TString pT_hist3 = Form("LH2_psip_y1_st1_pT%d", i);
+        pTAcceptance("y1_st1", -60., 60., pT_cut, pT_hist3, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+
+        TString pT_hist4 = Form("LH2_psip_y2_st1_pT%d", i);
+        pTAcceptance("y2_st1", -60., 60., pT_cut, pT_hist4, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+
+        TString pT_hist5 = Form("LH2_psip_x1_st3_pT%d", i);
+        pTAcceptance("x1_st3", 0., 150., pT_cut, pT_hist5, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+
+        TString pT_hist6 = Form("LH2_psip_x2_st3_pT%d", i);
+        pTAcceptance("x2_st3", -150., 0., pT_cut, pT_hist6, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+
+        TString pT_hist7 = Form("LH2_psip_y1_st3_pT%d", i);
+        pTAcceptance("y1_st3", -150., 150., pT_cut, pT_hist7, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+
+        TString pT_hist8 = Form("LH2_psip_y2_st3_pT%d", i);
+        pTAcceptance("y2_st3", -150., 150., pT_cut, pT_hist8, "targetPos==1", psipCut, psipCut, LH2_psip_data);
+    }
+
+    /*
+     * LD2 psip plots
+     */
+    for(int i = 0; i < 5; i++)
+    {
+        /*
+         * xF bins
+         */
+        TString xF_cut = Form("%.2f < xF && xF < %.2f", xF_bins[i], xF_bins[i+1]);
+
+        TString xF_hist1 = Form("LD2_psip_x1_st1_xF%d", i);
+        xFAcceptance("x1_st1", -20., 15., xF_cut, xF_hist1, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+
+        TString xF_hist2 = Form("LD2_psip_x2_st1_xF%d", i);
+        xFAcceptance("x2_st1", -30., 30., xF_cut, xF_hist2, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+
+        TString xF_hist3 = Form("LD2_psip_y1_st1_xF%d", i);
+        xFAcceptance("y1_st1", -60., 60., xF_cut, xF_hist3, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+
+        TString xF_hist4 = Form("LD2_psip_y2_st1_xF%d", i);
+        xFAcceptance("y2_st1", -60., 60., xF_cut, xF_hist4, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+
+        TString xF_hist5 = Form("LD2_psip_x1_st3_xF%d", i);
+        xFAcceptance("x1_st3", 0., 150., xF_cut, xF_hist5, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+
+        TString xF_hist6 = Form("LD2_psip_x2_st3_xF%d", i);
+        xFAcceptance("x2_st3", -150., 0., xF_cut, xF_hist6, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+
+        TString xF_hist7 = Form("LD2_psip_y1_st3_xF%d", i);
+        xFAcceptance("y1_st3", -150., 150., xF_cut, xF_hist7, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+
+        TString xF_hist8 = Form("LD2_psip_y2_st3_xF%d", i);
+        xFAcceptance("y2_st3", -150., 150., xF_cut, xF_hist8, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+
+        /*
+         * pT bins
+         */
+        TString pT_cut = Form("%.2f < pT && pT < %.2f", pT_bins[i], pT_bins[i+1]);
+
+        TString pT_hist1 = Form("LD2_psip_x1_st1_pT%d", i);
+        pTAcceptance("x1_st1", -20., 15., pT_cut, pT_hist1, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+
+        TString pT_hist2 = Form("LD2_psip_x2_st1_pT%d", i);
+        pTAcceptance("x2_st1", -30., 30., pT_cut, pT_hist2, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+
+        TString pT_hist3 = Form("LD2_psip_y1_st1_pT%d", i);
+        pTAcceptance("y1_st1", -60., 60., pT_cut, pT_hist3, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+
+        TString pT_hist4 = Form("LD2_psip_y2_st1_pT%d", i);
+        pTAcceptance("y2_st1", -60., 60., pT_cut, pT_hist4, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+
+        TString pT_hist5 = Form("LD2_psip_x1_st3_pT%d", i);
+        pTAcceptance("x1_st3", 0., 150., pT_cut, pT_hist5, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+
+        TString pT_hist6 = Form("LD2_psip_x2_st3_pT%d", i);
+        pTAcceptance("x2_st3", -150., 0., pT_cut, pT_hist6, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+
+        TString pT_hist7 = Form("LD2_psip_y1_st3_pT%d", i);
+        pTAcceptance("y1_st3", -150., 150., pT_cut, pT_hist7, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+
+        TString pT_hist8 = Form("LD2_psip_y2_st3_pT%d", i);
+        pTAcceptance("y2_st3", -150., 150., pT_cut, pT_hist8, "targetPos==3", psipCut, psipCut, LD2_psip_data);
+    }
+
+
 }
