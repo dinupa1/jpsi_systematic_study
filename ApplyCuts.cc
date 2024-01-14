@@ -85,10 +85,10 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     t->Draw();
     can->Update();
 
-    TLine* l_min = new TLine(mean - 1.5* fwhm, 0., mean - 1.5* fwhm, ymax);
+    TLine* l_min = new TLine(mean - 1.5* fwhm, 0., mean - 1.5* fwhm, 0.5* ymax);
     l_min->SetLineColor(kRed);
     l_min->Draw();
-    TLine* l_max = new TLine(mean + 1.5* fwhm, 0., mean + 1.5* fwhm, ymax);
+    TLine* l_max = new TLine(mean + 1.5* fwhm, 0., mean + 1.5* fwhm, 0.5* ymax);
     l_max->SetLineColor(kRed);
     l_max->Draw();
     can->Update();
@@ -96,6 +96,81 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
 
     TString outputs = Form("--> Fiducial cuts = %.1f < %s < %.1f", mean - 1.5* fwhm, var_name.Data(), mean + 1.5* fwhm);
     cout << outputs.Data() << endl;
+
+
+    /*
+     * Ratio plots
+     */
+    TString ratio_name = Form("ratio_%s", hist_name.Data());
+    TString ratio_title = Form("Ratio ; %s [cm]; #frac{MC data}{Real data} [a.u.]", var_name.Data());
+
+    auto ratio_plot = new TH1D(ratio_name.Data(), ratio_title.Data(), nbins, xmin, xmax);
+
+    /*
+     * Fractional deviation
+     */
+    TString fractional_name = Form("frac_%s", hist_name.Data());
+    TString fractional_title = Form("Fractional deviation; %s [cm]; #frac{Real data - MC data}{MC data}", var_name.Data());
+
+    auto fractional_plot = new TH1D(fractional_name.Data(), fractional_title.Data(), nbins, xmin, xmax);
+
+    for(int i = 0; i < nbins; i++)
+    {
+        double real_c = hReal->GetBinContent(i+1);
+        double real_e = hReal->GetBinError(i+1);
+
+        double mc_c = hMC->GetBinContent(i+1);
+        double mc_e = hMC->GetBinError(i+1);
+
+        double ratio_e2 = (1./real_c)* (1./real_c)* mc_e* mc_e + (mc_c/(real_c* real_c))* (mc_c/(real_c* real_c))* real_e* real_e;
+
+        if(sqrt(ratio_e2) < 10.)
+        {
+            ratio_plot->SetBinContent(i+1, mc_c/real_c);
+            ratio_plot->SetBinError(i+1, sqrt(ratio_e2));
+        }
+
+        /*
+         * Fractional deviation
+         */
+
+        double fraction_e2 = (real_c/(mc_c * mc_c))* (real_c/(mc_c * mc_c))* real_e* real_e + (1./real_c)* (1./real_c)* mc_e* mc_e;
+
+        if(sqrt(fraction_e2) < 10.)
+        {
+            fractional_plot->SetBinContent(i+1, (real_c - mc_c)/mc_c);
+            fractional_plot->SetBinError(i+1, sqrt(fraction_e2));
+        }
+
+    }
+
+    ratio_plot->SetMarkerColor(kViolet);
+    ratio_plot->SetMarkerStyle(20);
+
+    TString ratio_save = Form("imgs/ratio_%s.png", hist_name.Data());
+
+    ratio_plot->Draw("E1");
+    can->Update();
+    l_min->Draw();
+    l_max->Draw();
+    can->Update();
+    can->SaveAs(ratio_save.Data());
+
+    /*
+     * Fractional deviation
+     */
+
+    fractional_plot->SetMarkerColor(kViolet);
+    fractional_plot->SetMarkerStyle(20);
+
+    TString fractional_save = Form("imgs/fractional_%s.png", hist_name.Data());
+
+    fractional_plot->Draw("E1");
+    l_min->Draw();
+    l_max->Draw();
+    can->Update();
+    can->Update();
+    can->SaveAs(fractional_save.Data());
 }
 
 void ApplyCuts()
