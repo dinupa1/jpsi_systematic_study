@@ -74,10 +74,10 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     double mean = hMC->GetMean();
     double fwhm = 2.355*hMC->GetRMS();
 
-    TString fiducial_cuts = FormForm("--> Fiducial cuts in %s for 5s = %.1f < %s < %.1f", kin_cuts.Data(), fiducial_min, var_name.Data(), fiducial_max);
-
     double fiducial_min = mean - fwhm;
     double fiducial_max = mean + fwhm;
+
+    TString fiducial_cuts = FormForm("--> Fiducial cuts in %s for 5s = %.1f < %s < %.1f", kin_cuts.Data(), fiducial_min, var_name.Data(), fiducial_max);
 
     TText* t = new TText(.2, .95, fiducial_cuts.Data());
     t->SetNDC();
