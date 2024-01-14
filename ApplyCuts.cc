@@ -68,7 +68,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     TString hist_save = Form("imgs/%s.png", hist_name.Data());
 
     hReal->Draw("HIST");
-    hMC->Draw("HIST SAME");
+    hMC->Draw("E1 SAME");
     can->Update();
 
     double mean = hMC->GetMean();
