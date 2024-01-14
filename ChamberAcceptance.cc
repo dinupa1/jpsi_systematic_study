@@ -367,7 +367,7 @@ void ChamberAcceptance()
     /*
      * LH2 Jpsi data
      */
-    for(i = 0; i < 5; i++)
+    for(int i = 0; i < 5; i++)
     {
         /*
          * xF bins
