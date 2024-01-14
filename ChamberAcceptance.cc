@@ -372,7 +372,7 @@ void ChamberAcceptance()
         /*
          * xF bins
          */
-        TString xF_cut = Form("%f < xF && xF < %f", xF_bins[i], xF_bins[i+1]);
+        TString xF_cut = Form("%.2f < xF && xF < %.2f", xF_bins[i], xF_bins[i+1]);
 
         TString xF_hist1 = Form("LH2_jpsi_x1_st1_xF%d", i);
         xFAcceptance("x1_st1", -20., 15., xF_cut, xF_hist1, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
@@ -401,7 +401,7 @@ void ChamberAcceptance()
         /*
          * pT bins
          */
-        TString pT_cut = Form("%f < pT && pT < %f", pT_bins[i], pT_bins[i+1]);
+        TString pT_cut = Form("%.2f < pT && pT < %.2f", pT_bins[i], pT_bins[i+1]);
 
         TString pT_hist1 = Form("LH2_jpsi_x1_st1_pT%d", i);
         pTAcceptance("x1_st1", -20., 15., pT_cut, pT_hist1, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
