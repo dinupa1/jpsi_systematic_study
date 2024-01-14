@@ -41,7 +41,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     TString hMix_name = Form("hist_%s_mix", hist_name.Data());
     TString hJpsi_name = Form("hist_%s_jpsi", hist_name.Data());
 
-    TString hist_title = Form("; %s [cm]; normalized to unity [a.u.]", var_name.Data());
+    TString hist_title = Form("; %s, %s [cm]; normalized to unity [a.u.]", kin_cuts.Data(), var_name.Data());
 
     auto hReal = df_real1.Histo1D({hReal_name.Data(), hist_title.Data(), nbins, xmin, xmax}, var_name.Data());
     auto hMix = df_mix1.Histo1D({hMix_name.Data(), hist_title.Data(), nbins, xmin, xmax}, var_name.Data());
@@ -106,7 +106,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
      * Ratio plots
      */
     TString ratio_name = Form("ratio_%s", hist_name.Data());
-    TString ratio_title = Form("Ratio ; %s [cm]; #frac{MC data}{Real data} [a.u.]", var_name.Data());
+    TString ratio_title = Form("Ratio ; %s, %s [cm]; #frac{MC data}{Real data} [a.u.]", kin_cuts.Data(), var_name.Data());
 
     auto ratio_plot = new TH1D(ratio_name.Data(), ratio_title.Data(), nbins, xmin, xmax);
 
@@ -114,7 +114,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
      * Fractional deviation
      */
     TString fractional_name = Form("frac_%s", hist_name.Data());
-    TString fractional_title = Form("Fractional deviation; %s [cm]; #frac{Real data - MC data}{MC data}", var_name.Data());
+    TString fractional_title = Form("Fractional deviation; %s, %s [cm]; #frac{Real data - MC data}{MC data}", kin_cuts.Data(), var_name.Data());
 
     auto fractional_plot = new TH1D(fractional_name.Data(), fractional_title.Data(), nbins, xmin, xmax);
 
