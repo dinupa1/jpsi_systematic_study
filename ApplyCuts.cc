@@ -20,6 +20,8 @@ int nbins = 50;
 
 void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts, TString hist_name, TString target, TString particle, TString particle_MC, TString MC_data)
 {
+    gStyle->SetOptStat(0);
+
     TString MC_cuts = Form("%s && %s && %s && %s && %s && %s && %s", chuckCutsPositive_2111v42_tmp.Data(), chuckCutsNegative_2111v42_tmp.Data(), chuckCutsDimuon_2111v42.Data(), physicsCuts_noMassCut_2111v42_tmp.Data(), occCuts_2111v42_Run56.Data(), particle_MC.Data(), kin_cuts.Data());
 
     TString Real_cuts = Form("%s && %s && %s && %s && %s && %s && %s && %s", chuckCutsPositive_2111v42_tmp.Data(), chuckCutsNegative_2111v42_tmp.Data(), chuckCutsDimuon_2111v42.Data(), physicsCuts_noMassCut_2111v42_tmp.Data(), occCuts_2111v42_Run56.Data(), particle.Data(), kin_cuts.Data(), target.Data());
@@ -77,7 +79,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     double fiducial_min = mean - fwhm;
     double fiducial_max = mean + fwhm;
 
-    TString fiducial_cuts = Form("--> Fiducial cuts in %s for %s = %.1f < %s < %.1f", kin_cuts.Data(), target.Data(), fiducial_min, var_name.Data(), fiducial_max);
+    TString fiducial_cuts = Form("--> %s for %s = %.1f < %s < %.1f", kin_cuts.Data(), target.Data(), fiducial_min, var_name.Data(), fiducial_max);
 
     TText* t = new TText(.2, .95, fiducial_cuts.Data());
     t->SetNDC();
