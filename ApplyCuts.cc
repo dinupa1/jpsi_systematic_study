@@ -49,9 +49,9 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
 
     hReal->Sumw2();
     hMix->Sumw2();
-    hJpsi->Sumw2();
+    hJMC->Sumw2();
 
-    hReal->Add(hMix, -1);
+    hReal->Add(hMix.GetPtr(), -1);
 
     hReal->Scale(1./hReal->Integral());
     hMC->Scale(1./hMC->Integral());
@@ -89,13 +89,13 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     TLine* l_min = new TLine(mean - 0.75* fwhm, 0., mean - 0.75* fwhm, ymax);
     l_min->SetLineColor(kRed);
     l_min->Draw();
-    TLine* l_max = new TLine(mean - 0.75* fwhm, 0., mean - 0.75* fwhm, ymax);
+    TLine* l_max = new TLine(mean + 0.75* fwhm, 0., mean + 0.75* fwhm, ymax);
     l_max->SetLineColor(kRed);
     l_max->Draw();
     can->Update();
     can->SaveAs(hist_save.Data());
 
-    TString outputs = Form("--> Fiducial cuts = %.1f < %s < %.1f");
+    TString outputs = Form("--> Fiducial cuts = %.1f < %s < %.1f", mean - 0.75* fwhm, mean + 0.75* fwhm);
     cout << outputs.Data() << endl;
 }
 
