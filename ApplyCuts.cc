@@ -203,10 +203,10 @@ void ApplyCuts()
     /*
      * 2nd xF bin LH2 data Jpsi
      */
-    GetAcceptance("x1_st1", -20., 15., "0.6 < xF && xF < 0.6", "LH2_jpsi_x1_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
-    GetAcceptance("x2_st1", -30., 30., "0.6 < xF && xF < 0.6", "LH2_jpsi_x2_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
-    GetAcceptance("y1_st1", -60., 60., "0.6 < xF && xF < 0.6", "LH2_jpsi_y1_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
-    GetAcceptance("y2_st1", -60., 60., "0.6 < xF && xF < 0.6", "LH2_jpsi_y2_st1_xF0", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("x1_st1", -20., 15., "0.6 < xF && xF < 0.65", "LH2_jpsi_x1_st1_xF1", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("x2_st1", -30., 30., "0.6 < xF && xF < 0.65", "LH2_jpsi_x2_st1_xF1", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("y1_st1", -60., 60., "0.6 < xF && xF < 0.65", "LH2_jpsi_y1_st1_xF1", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+    GetAcceptance("y2_st1", -60., 60., "0.6 < xF && xF < 0.65", "LH2_jpsi_y2_st1_xF1", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 
     GetAcceptance("x1_st3", 0., 150., "0.6 < xF && xF < 0.65", "LH2_jpsi_x1_st3_xF1", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
     GetAcceptance("x2_st3", -150., 0., "0.6 < xF && xF < 0.65", "LH2_jpsi_x2_st3_xF1", "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
