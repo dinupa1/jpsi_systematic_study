@@ -57,7 +57,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     hReal->Scale(1./hReal->Integral());
     hMC->Scale(1./hMC->Integral());
 
-    hReal->SetFillColor(kViolet-2);
+    hReal->SetFillColor(kViolet-10);
 
     hMC->SetMarkerColor(kSpring);
     hMC->SetMarkerStyle(20);
@@ -81,12 +81,12 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
 
     TString fiducial_cuts = Form("--> %s for %s = %.1f < %s < %.1f", kin_cuts.Data(), target.Data(), fiducial_min, var_name.Data(), fiducial_max);
 
-    TText* t = new TText(.2, .95, fiducial_cuts.Data());
+    TText* t = new TText(.4, .95, fiducial_cuts.Data());
     t->SetNDC();
     t->SetTextAlign(22);
     t->SetTextColor(kRed+2);
     t->SetTextFont(43);
-    t->SetTextSize(15);
+    t->SetTextSize(20);
     t->Draw();
     can->Update();
 
