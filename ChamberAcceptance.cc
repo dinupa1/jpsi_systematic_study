@@ -287,14 +287,14 @@ void ChamberAcceptance()
     }
 
 /*
-    /*
-     * LD2 jpsi plots
-     */
+
+//      LD2 jpsi plots
+
     for(int i = 0; i < 5; i++)
     {
-        /*
-         * xF bins
-         */
+
+//           xF bins
+
         TString xF_cut = Form("%.2f < xF && xF < %.2f", xF_bins[i], xF_bins[i+1]);
 
         TString xF_hist1 = Form("LD2_jpsi_x1_st1_xF%d", i);
@@ -321,9 +321,9 @@ void ChamberAcceptance()
         TString xF_hist8 = Form("LD2_jpsi_y2_st3_xF%d", i);
         GetAcceptance("y2_st3", -150., 150., xF_cut, xF_hist8, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
 
-        /*
-         * pT bins
-         */
+
+//           pT bins
+
         TString pT_cut = Form("%.2f < pT && pT < %.2f", pT_bins[i], pT_bins[i+1]);
 
         TString pT_hist1 = Form("LD2_jpsi_x1_st1_pT%d", i);
@@ -351,14 +351,14 @@ void ChamberAcceptance()
         GetAcceptance("y2_st3", -150., 150., pT_cut, pT_hist8, "targetPos==3", jPsiCut, jPsiCut_MC, LD2_jpsi_data);
     }
 
-    /*
-     * LH2 psip plots
-     */
+
+//      LH2 psip plots
+
     for(int i = 0; i < 5; i++)
     {
-        /*
-         * xF bins
-         */
+
+//          xF bins
+
         TString xF_cut = Form("%.2f < xF && xF < %.2f", xF_bins[i], xF_bins[i+1]);
 
         TString xF_hist1 = Form("LH2_psip_x1_st1_xF%d", i);
@@ -385,9 +385,9 @@ void ChamberAcceptance()
         TString xF_hist8 = Form("LH2_psip_y2_st3_xF%d", i);
         GetAcceptance("y2_st3", -150., 150., xF_cut, xF_hist8, "targetPos==1", psipCut, psipCut, LH2_psip_data);
 
-        /*
-         * pT bins
-         */
+
+//          pT bins
+
         TString pT_cut = Form("%.2f < pT && pT < %.2f", pT_bins[i], pT_bins[i+1]);
 
         TString pT_hist1 = Form("LH2_psip_x1_st1_pT%d", i);
@@ -415,14 +415,14 @@ void ChamberAcceptance()
         GetAcceptance("y2_st3", -150., 150., pT_cut, pT_hist8, "targetPos==1", psipCut, psipCut, LH2_psip_data);
     }
 
-    /*
-     * LD2 psip plots
-     */
+
+//      LD2 psip plots
+
     for(int i = 0; i < 5; i++)
     {
-        /*
-         * xF bins
-         */
+
+//          xF bins
+
         TString xF_cut = Form("%.2f < xF && xF < %.2f", xF_bins[i], xF_bins[i+1]);
 
         TString xF_hist1 = Form("LD2_psip_x1_st1_xF%d", i);
@@ -449,9 +449,9 @@ void ChamberAcceptance()
         TString xF_hist8 = Form("LD2_psip_y2_st3_xF%d", i);
         GetAcceptance("y2_st3", -150., 150., xF_cut, xF_hist8, "targetPos==3", psipCut, psipCut, LD2_psip_data);
 
-        /*
-         * pT bins
-         */
+
+//          pT bins
+
         TString pT_cut = Form("%.2f < pT && pT < %.2f", pT_bins[i], pT_bins[i+1]);
 
         TString pT_hist1 = Form("LD2_psip_x1_st1_pT%d", i);
