@@ -5,7 +5,6 @@
 
 #include<iostream>
 
-#include "chuckcuts.h"
 #include "DataFrames.hh"
 
 using namespace ROOT;
