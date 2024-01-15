@@ -14,6 +14,6 @@ int nbins = 50;
 
 void Test()
 {
-    auto display = df_real_with_basic_cuts.Display();
+    auto display = df_real_with_basic_cuts.Display({"x1_st1", "x1_st2", "x1_st3", "pT"});
     display->Print();
 }
