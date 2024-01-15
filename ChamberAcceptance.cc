@@ -32,15 +32,15 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     TString Mix_cuts = Form("%s && %s && %s && %s && %s && %s && %s", chuckCutsPositive_2111v42_tmp.Data(), chuckCutsNegative_2111v42_tmp.Data(), chuckCutsDimuon_2111v42.Data(), physicsCuts_noMassCut_2111v42_tmp.Data(), particle.Data(), kin_cuts.Data(), "(targetPos==1 | targetPos==3)");
 
     RDataFrame df_real("Tree", real_data.Data());
-    auto df_real0 = df_real.Define("pT", "sqrt(dpx* dpx + dpy* dpy)");
+    auto df_real0 = df_real.Define("pT", "sqrt(dpx* dpx + dpy* dpy)").Define("z0_st1", "620.").Define("z0_st2", "1345.").Define("z0_st3", "1920.").Define("x1_st2", "x1_st3 - (px1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("x2_st2", "x2_st3 - (px2_st3/pz2_st3)* (z0_st3 - z0_st2)").Define("y1_st2", "y1_st3 - (py1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("y2_st2", "y2_st3 - (py2_st3/pz2_st3)* (z0_st3 - z0_st2)");
     auto df_real1 = df_real0.Filter(Real_cuts.Data());
 
     RDataFrame df_mix("Tree", mix_data.Data());
-    auto df_mix0 = df_mix.Define("pT", "sqrt(dpx* dpx + dpy* dpy)");
+    auto df_mix0 = df_mix.Define("pT", "sqrt(dpx* dpx + dpy* dpy)").Define("z0_st1", "620.").Define("z0_st2", "1345.").Define("z0_st3", "1920.").Define("x1_st2", "x1_st3 - (px1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("x2_st2", "x2_st3 - (px2_st3/pz2_st3)* (z0_st3 - z0_st2)").Define("y1_st2", "y1_st3 - (py1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("y2_st2", "y2_st3 - (py2_st3/pz2_st3)* (z0_st3 - z0_st2)");
     auto df_mix1 = df_mix0.Filter(Mix_cuts.Data());
 
     RDataFrame df_mc("Tree", MC_data.Data());
-    auto df_mc0 = df_mc.Define("pT", "sqrt(dpx* dpx + dpy* dpy)");
+    auto df_mc0 = df_mc.Define("pT", "sqrt(dpx* dpx + dpy* dpy)").Define("z0_st1", "620.").Define("z0_st2", "1345.").Define("z0_st3", "1920.").Define("x1_st2", "x1_st3 - (px1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("x2_st2", "x2_st3 - (px2_st3/pz2_st3)* (z0_st3 - z0_st2)").Define("y1_st2", "y1_st3 - (py1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("y2_st2", "y2_st3 - (py2_st3/pz2_st3)* (z0_st3 - z0_st2)");
     auto df_mc1 = df_mc0.Filter(MC_cuts.Data());
 
     TString hReal_name = Form("hist_%s_real", hist_name.Data());
@@ -87,22 +87,22 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
 
     TString fiducial_cuts = Form("%s for %s --> %.1f < %s < %.1f", kin_cuts.Data(), target.Data(), fiducial_min, var_name.Data(), fiducial_max);
 
-    TText* t = new TText(.4, .95, fiducial_cuts.Data());
-    t->SetNDC();
-    t->SetTextAlign(22);
-    t->SetTextColor(kRed+2);
-    t->SetTextFont(43);
-    t->SetTextSize(20);
-    t->Draw();
-    can->Update();
+//     TText* t = new TText(.4, .95, fiducial_cuts.Data());
+//     t->SetNDC();
+//     t->SetTextAlign(22);
+//     t->SetTextColor(kRed+2);
+//     t->SetTextFont(43);
+//     t->SetTextSize(20);
+//     t->Draw();
+//     can->Update();
 
-    TLine* l_min = new TLine(fiducial_min, hReal->GetBinContent(hReal->GetMinimumBin()), fiducial_min,  hReal->GetBinContent(hReal->GetMaximumBin()));
-    l_min->SetLineColor(kRed);
-    l_min->Draw();
-    TLine* l_max = new TLine(fiducial_max, hReal->GetBinContent(hReal->GetMinimumBin()), fiducial_max,  hReal->GetBinContent(hReal->GetMaximumBin()));
-    l_max->SetLineColor(kRed);
-    l_max->Draw();
-    can->Update();
+//     TLine* l_min = new TLine(fiducial_min, hReal->GetBinContent(hReal->GetMinimumBin()), fiducial_min,  hReal->GetBinContent(hReal->GetMaximumBin()));
+//     l_min->SetLineColor(kRed);
+//     l_min->Draw();
+//     TLine* l_max = new TLine(fiducial_max, hReal->GetBinContent(hReal->GetMinimumBin()), fiducial_max,  hReal->GetBinContent(hReal->GetMaximumBin()));
+//     l_max->SetLineColor(kRed);
+//     l_max->Draw();
+//     can->Update();
     can->SaveAs(hist_save.Data());
 
     cout << fiducial_cuts.Data() << endl;
@@ -162,13 +162,13 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     ratio_plot->Draw("E1");
     can->Update();
 
-    TLine* l_min1 = new TLine(fiducial_min, ratio_plot->GetBinContent(ratio_plot->GetMinimumBin()), fiducial_min,  ratio_plot->GetBinContent(ratio_plot->GetMaximumBin()));
-    l_min1->SetLineColor(kRed);
-    l_min1->Draw();
-    TLine* l_max1 = new TLine(fiducial_max, ratio_plot->GetBinContent(ratio_plot->GetMinimumBin()), fiducial_max,  ratio_plot->GetBinContent(ratio_plot->GetMaximumBin()));
-    l_max1->SetLineColor(kRed);
-    l_max1->Draw();
-    can->Update();
+//     TLine* l_min1 = new TLine(fiducial_min, ratio_plot->GetBinContent(ratio_plot->GetMinimumBin()), fiducial_min,  ratio_plot->GetBinContent(ratio_plot->GetMaximumBin()));
+//     l_min1->SetLineColor(kRed);
+//     l_min1->Draw();
+//     TLine* l_max1 = new TLine(fiducial_max, ratio_plot->GetBinContent(ratio_plot->GetMinimumBin()), fiducial_max,  ratio_plot->GetBinContent(ratio_plot->GetMaximumBin()));
+//     l_max1->SetLineColor(kRed);
+//     l_max1->Draw();
+//     can->Update();
     can->SaveAs(ratio_save.Data());
 
     /*
@@ -183,13 +183,13 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     fractional_plot->Draw("E1");
     can->Update();
 
-    TLine* l_min2 = new TLine(fiducial_min, fractional_plot->GetBinContent(fractional_plot->GetMinimumBin()), fiducial_min,  fractional_plot->GetBinContent(fractional_plot->GetMaximumBin()));
-    l_min2->SetLineColor(kRed);
-    l_min2->Draw();
-    TLine* l_max2 = new TLine(fiducial_max, fractional_plot->GetBinContent(fractional_plot->GetMinimumBin()), fiducial_max,  fractional_plot->GetBinContent(fractional_plot->GetMaximumBin()));
-    l_max2->SetLineColor(kRed);
-    l_max2->Draw();
-    can->Update();
+//     TLine* l_min2 = new TLine(fiducial_min, fractional_plot->GetBinContent(fractional_plot->GetMinimumBin()), fiducial_min,  fractional_plot->GetBinContent(fractional_plot->GetMaximumBin()));
+//     l_min2->SetLineColor(kRed);
+//     l_min2->Draw();
+//     TLine* l_max2 = new TLine(fiducial_max, fractional_plot->GetBinContent(fractional_plot->GetMinimumBin()), fiducial_max,  fractional_plot->GetBinContent(fractional_plot->GetMaximumBin()));
+//     l_max2->SetLineColor(kRed);
+//     l_max2->Draw();
+//     can->Update();
     can->SaveAs(fractional_save.Data());
 }
 
@@ -232,6 +232,18 @@ void ChamberAcceptance()
         TString xF_hist8 = Form("LH2_jpsi_y2_st3_xF%d", i);
         GetAcceptance("y2_st3", -150., 150., xF_cut, xF_hist8, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 
+        TString xF_hist9 = Form("LH2_jpsi_x1_st2_xF%d", i);
+        GetAcceptance("x1_st2", -20., 15., xF_cut, xF_hist9, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+
+        TString xF_hist10 = Form("LH2_jpsi_x2_st2_xF%d", i);
+        GetAcceptance("x2_st2", -30., 30., xF_cut, xF_hist10, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+
+        TString xF_hist11 = Form("LH2_jpsi_y1_st2_xF%d", i);
+        GetAcceptance("y1_st2", -60., 60., xF_cut, xF_hist11, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+
+        TString xF_hist12 = Form("LH2_jpsi_y2_st2_xF%d", i);
+        GetAcceptance("y2_st2", -60., 60., xF_cut, xF_hist12, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+
         /*
          * pT bins
          */
@@ -260,8 +272,21 @@ void ChamberAcceptance()
 
         TString pT_hist8 = Form("LH2_jpsi_y2_st3_pT%d", i);
         GetAcceptance("y2_st3", -150., 150., pT_cut, pT_hist8, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+
+        TString pT_hist9 = Form("LH2_jpsi_x1_st2_pT%d", i);
+        GetAcceptance("x1_st2", -20., 15., pT_cut, pT_hist9, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+
+        TString pT_hist10 = Form("LH2_jpsi_x2_st2_pT%d", i);
+        GetAcceptance("x2_st2", -30., 30., pT_cut, pT_hist10, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+
+        TString pT_hist11 = Form("LH2_jpsi_y1_st2_pT%d", i);
+        GetAcceptance("y1_st2", -60., 60., pT_cut, pT_hist11, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+
+        TString pT_hist12 = Form("LH2_jpsi_y2_st2_pT%d", i);
+        GetAcceptance("y2_st2", -60., 60., pT_cut, pT_hist12, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
     }
 
+/*
     /*
      * LD2 jpsi plots
      */
@@ -453,6 +478,7 @@ void ChamberAcceptance()
         TString pT_hist8 = Form("LD2_psip_y2_st3_pT%d", i);
         GetAcceptance("y2_st3", -150., 150., pT_cut, pT_hist8, "targetPos==3", psipCut, psipCut, LD2_psip_data);
     }
+*/
 
 
 }
