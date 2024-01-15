@@ -233,10 +233,10 @@ void ChamberAcceptance()
         GetAcceptance("y2_st3", -150., 150., xF_cut, xF_hist8, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 
         TString xF_hist9 = Form("LH2_jpsi_x1_st2_xF%d", i);
-        GetAcceptance("x1_st2", -5., 115., xF_cut, xF_hist9, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+        GetAcceptance("x1_st2", -5., 80., xF_cut, xF_hist9, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 
         TString xF_hist10 = Form("LH2_jpsi_x2_st2_xF%d", i);
-        GetAcceptance("x2_st2", -115., 5., xF_cut, xF_hist10, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+        GetAcceptance("x2_st2", -80., 5., xF_cut, xF_hist10, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 
         TString xF_hist11 = Form("LH2_jpsi_y1_st2_xF%d", i);
         GetAcceptance("y1_st2", -130., 130., xF_cut, xF_hist11, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
@@ -274,16 +274,16 @@ void ChamberAcceptance()
         GetAcceptance("y2_st3", -150., 150., pT_cut, pT_hist8, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 
         TString pT_hist9 = Form("LH2_jpsi_x1_st2_pT%d", i);
-        GetAcceptance("x1_st2", -20., 15., pT_cut, pT_hist9, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+        GetAcceptance("x1_st2", -5., 80., pT_cut, pT_hist9, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 
         TString pT_hist10 = Form("LH2_jpsi_x2_st2_pT%d", i);
-        GetAcceptance("x2_st2", -30., 30., pT_cut, pT_hist10, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+        GetAcceptance("x2_st2", -80., 5., pT_cut, pT_hist10, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 
         TString pT_hist11 = Form("LH2_jpsi_y1_st2_pT%d", i);
-        GetAcceptance("y1_st2", -60., 60., pT_cut, pT_hist11, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+        GetAcceptance("y1_st2", -130., 130., pT_cut, pT_hist11, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 
         TString pT_hist12 = Form("LH2_jpsi_y2_st2_pT%d", i);
-        GetAcceptance("y2_st2", -60., 60., pT_cut, pT_hist12, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+        GetAcceptance("y2_st2", -130., 130., pT_cut, pT_hist12, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
     }
 
 /*
