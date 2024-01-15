@@ -32,15 +32,15 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kin_cuts,
     TString Mix_cuts = Form("%s && %s && %s && %s && %s && %s && %s", chuckCutsPositive_2111v42_tmp.Data(), chuckCutsNegative_2111v42_tmp.Data(), chuckCutsDimuon_2111v42.Data(), physicsCuts_noMassCut_2111v42_tmp.Data(), particle.Data(), kin_cuts.Data(), "(targetPos==1 | targetPos==3)");
 
     RDataFrame df_real("Tree", real_data.Data());
-    auto df_real0 = df_real.Define("pT", "sqrt(dpx* dpx + dpy* dpy)").Define("z0_st1", "620.").Define("z0_st2", "1345.").Define("z0_st3", "1920.").Define("x1_st2", "x1_st3 - (px1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("x2_st2", "x2_st3 - (px2_st3/pz2_st3)* (z0_st3 - z0_st2)").Define("y1_st2", "y1_st3 - (py1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("y2_st2", "y2_st3 - (py2_st3/pz2_st3)* (z0_st3 - z0_st2)");
+    auto df_real0 = df_real.Define("pT", "sqrt(dpx* dpx + dpy* dpy)").Define("z0_st1", "620.").Define("z0_st2", "1345.").Define("z0_st3", "1910.").Define("x1_st2", "x1_st3 - (px1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("x2_st2", "x2_st3 - (px2_st3/pz2_st3)* (z0_st3 - z0_st2)").Define("y1_st2", "y1_st3 - (py1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("y2_st2", "y2_st3 - (py2_st3/pz2_st3)* (z0_st3 - z0_st2)");
     auto df_real1 = df_real0.Filter(Real_cuts.Data());
 
     RDataFrame df_mix("Tree", mix_data.Data());
-    auto df_mix0 = df_mix.Define("pT", "sqrt(dpx* dpx + dpy* dpy)").Define("z0_st1", "620.").Define("z0_st2", "1345.").Define("z0_st3", "1920.").Define("x1_st2", "x1_st3 - (px1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("x2_st2", "x2_st3 - (px2_st3/pz2_st3)* (z0_st3 - z0_st2)").Define("y1_st2", "y1_st3 - (py1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("y2_st2", "y2_st3 - (py2_st3/pz2_st3)* (z0_st3 - z0_st2)");
+    auto df_mix0 = df_mix.Define("pT", "sqrt(dpx* dpx + dpy* dpy)").Define("z0_st1", "620.").Define("z0_st2", "1345.").Define("z0_st3", "1910.").Define("x1_st2", "x1_st3 - (px1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("x2_st2", "x2_st3 - (px2_st3/pz2_st3)* (z0_st3 - z0_st2)").Define("y1_st2", "y1_st3 - (py1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("y2_st2", "y2_st3 - (py2_st3/pz2_st3)* (z0_st3 - z0_st2)");
     auto df_mix1 = df_mix0.Filter(Mix_cuts.Data());
 
     RDataFrame df_mc("Tree", MC_data.Data());
-    auto df_mc0 = df_mc.Define("pT", "sqrt(dpx* dpx + dpy* dpy)").Define("z0_st1", "620.").Define("z0_st2", "1345.").Define("z0_st3", "1920.").Define("x1_st2", "x1_st3 - (px1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("x2_st2", "x2_st3 - (px2_st3/pz2_st3)* (z0_st3 - z0_st2)").Define("y1_st2", "y1_st3 - (py1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("y2_st2", "y2_st3 - (py2_st3/pz2_st3)* (z0_st3 - z0_st2)");
+    auto df_mc0 = df_mc.Define("pT", "sqrt(dpx* dpx + dpy* dpy)").Define("z0_st1", "620.").Define("z0_st2", "1345.").Define("z0_st3", "1910.").Define("x1_st2", "x1_st3 - (px1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("x2_st2", "x2_st3 - (px2_st3/pz2_st3)* (z0_st3 - z0_st2)").Define("y1_st2", "y1_st3 - (py1_st3/pz1_st3)* (z0_st3 - z0_st2)").Define("y2_st2", "y2_st3 - (py2_st3/pz2_st3)* (z0_st3 - z0_st2)");
     auto df_mc1 = df_mc0.Filter(MC_cuts.Data());
 
     TString hReal_name = Form("hist_%s_real", hist_name.Data());
@@ -201,7 +201,7 @@ void ChamberAcceptance()
     /*
      * LH2 Jpsi plots
      */
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < 1; i++)
     {
         /*
          * xF bins
@@ -233,16 +233,16 @@ void ChamberAcceptance()
         GetAcceptance("y2_st3", -150., 150., xF_cut, xF_hist8, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 
         TString xF_hist9 = Form("LH2_jpsi_x1_st2_xF%d", i);
-        GetAcceptance("x1_st2", -20., 15., xF_cut, xF_hist9, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+        GetAcceptance("x1_st2", -5., 115., xF_cut, xF_hist9, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 
         TString xF_hist10 = Form("LH2_jpsi_x2_st2_xF%d", i);
-        GetAcceptance("x2_st2", -30., 30., xF_cut, xF_hist10, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+        GetAcceptance("x2_st2", -115., 5., xF_cut, xF_hist10, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 
         TString xF_hist11 = Form("LH2_jpsi_y1_st2_xF%d", i);
-        GetAcceptance("y1_st2", -60., 60., xF_cut, xF_hist11, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+        GetAcceptance("y1_st2", -130., 130., xF_cut, xF_hist11, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 
         TString xF_hist12 = Form("LH2_jpsi_y2_st2_xF%d", i);
-        GetAcceptance("y2_st2", -60., 60., xF_cut, xF_hist12, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
+        GetAcceptance("y2_st2", -130., 130., xF_cut, xF_hist12, "targetPos==1", jPsiCut, jPsiCut_MC, LH2_jpsi_data);
 
         /*
          * pT bins
