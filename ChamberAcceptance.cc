@@ -182,8 +182,8 @@ void ChamberAcceptance()
 {
     double xF_bins[6] = {0.4, 0.6, 0.65, 0.7, 0.77, 0.95};
     double pT_bins[6] = {0, 0.3, 0.45, 0.65, 0.9, 1.5};
-    double xmins[12] = {-20., -30., -60., -60., -5., -80., -130., -130., 0., -150., -150., -150.};
-    double xmaxs[12] = {15., 30., 60., 60., 80., 5., 130., 130., 150., 0., 150., 150.};
+    double xmins[12] = {-25., -35., -65., -65., -10., -85., -135., -135., 5., -155., -155., -155.};
+    double xmaxs[12] = {20., 35., 65., 65., 80., 10., 135., 135., 155., 5., 155., 155.};
     TString targets[2] = {"targetPos==1", "targetPos==3"};
     TString particles_mc[2] = {jPsiCut_MC, psipCut};
     TString particles[2] = {jPsiCut, psipCut};
