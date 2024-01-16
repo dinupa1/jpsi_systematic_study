@@ -4,7 +4,7 @@ source /e906/app/software/osg/software/e1039/this-e1039.sh
 source /seaquest/users/dinupa/seaquest/apps/RooUnfold/build/setup.sh
 
 
-function update {
+function update-this {
     echo "---> Updating the branch"
     git pull
 }
