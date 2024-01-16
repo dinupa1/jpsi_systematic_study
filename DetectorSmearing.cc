@@ -26,11 +26,11 @@ void plotSmearing(ROOT::RDF::RNode dataFrame, TString varTrue, TString varReco, 
     auto ymin = df_with_kinematics.Min(varTrue.Data());
     auto ymax = df_with_kinematics.Max(varTrue.Data());
 
-    TString outputs = Form("%.2f < %s < %.2f and %.2f < %s < %.2f", *xmin, varReco.Data(), *xmax, *ymin, varTrue.Data(), *ymax);
+    TString outputs = Form("%.2f < %s < %.2f and %.2f < %s < %.2f", *xmin - 0.2, varReco.Data(), *xmax + 0.2, *ymin - 0.2, varTrue.Data(), *ymax + 0.2);
 
     cout << outputs.Data() << endl;
 
-    RooUnfoldResponse sMatrix(bins, *xmin, *xmax, bins, *ymin, *ymax);
+    RooUnfoldResponse sMatrix(bins, *xmin - 0.2, *xmax + 0.2, bins, *ymin - 0.2, *ymax + 0.2);
 
     df_with_kinematics.Foreach([&sMatrix] (float reco_x, float true_x, float weight_x){sMatrix.Fill(reco_x, true_x, weight_x);}, {varReco.Data(), varTrue.Data(), "ReWeight"});
 
