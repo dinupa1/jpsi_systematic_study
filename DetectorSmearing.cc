@@ -2,7 +2,6 @@
  * dinupa3@gmail.com
  * Calculating smearing effect due to detector resolution
  */
-
 R_LOAD_LIBRARY(../apps/RooUnfold/build/libRooUnfold)
 
 #include "../apps/RooUnfold/src/RooUnfoldResponse.h"
@@ -26,7 +25,7 @@ void plotSmearing(ROOT::RDF::RNode dataFrame, TString variable, TString kinemati
     auto xmin = df_with_kinematics.Min(variable.Data());
     auto xmax = df_with_kinematics.Max(variable.Data());
 
-    df_with_kinematics.Foreach([] (float x, float y){cout << "--- > true " << x << " , reco " << y << endl;}, {variable.Data(), variableTrue.Data()})
+    df_with_kinematics.Foreach([] (float x, float y){cout << "--- > true " << x << " , reco " << y << endl;}, {variable.Data(), variableTrue.Data()});
 
 //     RooUnfoldResponse matrix(bins, *xmin, *xmax);
 //
