@@ -32,7 +32,7 @@ void plotSmearing(ROOT::RDF::RNode dataFrame, TString varTrue, TString varReco, 
     auto R = sMatrix.HresponseNoOverflow();
     auto c1 = new TCanvas();
     R->SetStats(0);
-    R->SetNameTitle(smearing.Data(), smearingTitle.Data())
+    R->SetNameTitle(smearing.Data(), smearingTitle.Data());
     R->Draw("COLZ");
     c1->Draw();
     c1->SaveAs("smearing.png");
