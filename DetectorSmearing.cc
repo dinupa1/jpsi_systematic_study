@@ -24,19 +24,18 @@ void plotSmearing(ROOT::RDF::RNode dataFrame, TString varTrue, TString varReco, 
     auto xmin = df_with_kinematics.Min(varReco.Data());
     auto xmax = df_with_kinematics.Max(varReco.Data());
 
-    auto matrix = new RooUnfoldResponse(bins, *xmin, *xmax);
+    RooUnfoldResponse sMatrix(bins, *xmin, *xmax);
 
-//     df_with_kinematics.Foreach([] (RooUnfoldResponse* M, float x, float y, float w){M->Fill(x, y, w);}, {varTrue.Data(), varReco.Data(), "ReWeight"});
+    df_with_kinematics.Foreach([&sMatrix] (float reco_x, float true_x, float weight_x){M->Fill(reco_x, true_x, weight_x);}, {varReco.Data(), varTrue.Data(), "ReWeight"});
 
-//     auto sMatrix = df_with_kinematics.Fill(matrix, {varReco.Data(), varTrue.Data(), "ReWeight"});
-//
-//     auto R = sMatrix.GetPtr()->HresponseNoOverflow();
-//     auto c1 = new TCanvas();
-//     R->SetStats(0);
-//     R->SetNameTitle(smearing.Data(), smearingTitle.Data())
-//     R->Draw("COLZ");
-//     c1->Draw();
-//     c1->SaveAs("smearing.png");
+
+    auto R = sMatrix.HresponseNoOverflow();
+    auto c1 = new TCanvas();
+    R->SetStats(0);
+    R->SetNameTitle(smearing.Data(), smearingTitle.Data())
+    R->Draw("COLZ");
+    c1->Draw();
+    c1->SaveAs("smearing.png");
 }
 
 void DetectorSmearing()
