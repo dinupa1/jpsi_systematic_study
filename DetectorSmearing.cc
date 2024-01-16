@@ -17,14 +17,16 @@ int bins = 20;
 
 void plotSmearing(ROOT::RDF::RNode dataFrame, TString varTrue, TString varReco, TString kinematics, TString smearing)
 {
-    TString smearingTitle = Form("Smearing ; True %s; Reco. %s", varReco.Data(), varReco.Data());
+    TString smearingTitle = Form("Smearing ; Reco. %s; True %s", varReco.Data(), varReco.Data());
 
     auto df_with_kinematics = dataFrame.Filter(kinematics.Data());
 
     auto xmin = df_with_kinematics.Min(varReco.Data());
     auto xmax = df_with_kinematics.Max(varReco.Data());
+    auto ymin = df_with_kinematics.Min(varTrue.Data());
+    auto ymax = df_with_kinematics.Max(varTrue.Data());
 
-    RooUnfoldResponse sMatrix(bins, *xmin, *xmax);
+    RooUnfoldResponse sMatrix(bins, *xmin, *xmax, bins, *ymin, *ymax);
 
     df_with_kinematics.Foreach([&sMatrix] (float reco_x, float true_x, float weight_x){sMatrix.Fill(reco_x, true_x, weight_x);}, {varReco.Data(), varTrue.Data(), "ReWeight"});
 
