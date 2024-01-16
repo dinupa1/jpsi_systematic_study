@@ -15,17 +15,16 @@ using namespace std;
 int bins = 20;
 
 
-void plotSmearing(ROOT::RDF::RNode dataFrame, TString variable, TString kinematics, TString smearing)
+void plotSmearing(ROOT::RDF::RNode dataFrame, TString varTrue, TString varReco, TString kinematics, TString smearing)
 {
-    TString variableTrue = Form("m%s", variable.Data());
-    TString smearingTitle = Form("Smearing ; True %s; Reco. %s", variable.Data(), variable.Data());
+    TString smearingTitle = Form("Smearing ; True %s; Reco. %s", varReco.Data(), varReco.Data());
 
     auto df_with_kinematics = dataFrame.Filter(kinematics.Data());
 
-    auto xmin = df_with_kinematics.Min(variable.Data());
-    auto xmax = df_with_kinematics.Max(variable.Data());
+    auto xmin = df_with_kinematics.Min(varReco.Data());
+    auto xmax = df_with_kinematics.Max(varReco.Data());
 
-    df_with_kinematics.Foreach([] (float x, float y){cout << "--- > true " << x << " , reco " << y << endl;}, {variable.Data(), variableTrue.Data()});
+    df_with_kinematics.Foreach([] (float x, float y){cout << "--- > true " << x << " , reco " << y << endl;}, {varTrue.Data(), varReco.Data()});
 
 //     RooUnfoldResponse matrix(bins, *xmin, *xmax);
 //
