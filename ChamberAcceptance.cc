@@ -17,7 +17,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kinematic
     gStyle->SetOptStat(0);
 
     TString mc_cuts = Form("%s && %s", particle_MC.Data(), kinematics.Data());
-    TString real_cuts = Form("%s && %s && %s", partile.Data(), target.Data(), kinematics.Data());
+    TString real_cuts = Form("%s && %s && %s", particle.Data(), target.Data(), kinematics.Data());
     TString mix_cuts = Form("%s && %s", particle.Data(), kinematics.Data());
 
     auto df_real = df_real_with_basic_cuts.Filter(real_cuts.Data());
@@ -29,7 +29,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kinematic
     TString hMix_name = Form("hist_%s_mix", hist_name.Data());
     TString hJpsi_name = Form("hist_%s_jpsi", hist_name.Data());
 
-    TString hist_title = Form("; (%s) %s [cm]; normalized to unity [a.u.]", kin_cuts.Data(), var_name.Data());
+    TString hist_title = Form("; (%s) %s [cm]; normalized to unity [a.u.]", kinematics.Data(), var_name.Data());
 
     auto hReal = df_real.Histo1D({hReal_name.Data(), hist_title.Data(), nbins, xmin, xmax}, var_name.Data());
     auto hMix = df_mix.Histo1D({hMix_name.Data(), hist_title.Data(), nbins, xmin, xmax}, var_name.Data());
@@ -94,7 +94,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kinematic
      * Ratio plots
      */
     TString ratio_name = Form("ratio_%s", hist_name.Data());
-    TString ratio_title = Form("Ratio ; (%s) %s [cm]; #frac{MC data}{Real data} [a.u.]", kin_cuts.Data(), var_name.Data());
+    TString ratio_title = Form("Ratio ; (%s) %s [cm]; #frac{MC data}{Real data} [a.u.]", kinematics.Data(), var_name.Data());
 
     auto ratio_plot = new TH1D(ratio_name.Data(), ratio_title.Data(), nbins, xmin, xmax);
 
@@ -102,7 +102,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kinematic
      * Fractional deviation
      */
     TString fractional_name = Form("frac_%s", hist_name.Data());
-    TString fractional_title = Form("Fractional deviation; (%s) %s [cm]; #frac{Real data - MC data}{MC data}", kin_cuts.Data(), var_name.Data());
+    TString fractional_title = Form("Fractional deviation; (%s) %s [cm]; #frac{Real data - MC data}{MC data}", kinematics.Data(), var_name.Data());
 
     auto fractional_plot = new TH1D(fractional_name.Data(), fractional_title.Data(), nbins, xmin, xmax);
 
