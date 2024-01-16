@@ -28,15 +28,15 @@ void plotSmearing(ROOT::RDF::RNode dataFrame, TString varTrue, TString varReco, 
 
 //     df_with_kinematics.Foreach([] (RooUnfoldResponse* M, float x, float y, float w){M->Fill(x, y, w);}, {varTrue.Data(), varReco.Data(), "ReWeight"});
 
-    auto sMatrix = df_with_kinematics.Fill(matrix, {varReco.Data(), varTrue.Data(), "ReWeight"});
-
-    auto R = sMatrix.GetPtr()->HresponseNoOverflow();
-    auto c1 = new TCanvas();
-    R->SetStats(0);
-    R->SetNameTitle(smearing.Data(), smearingTitle.Data())
-    R->Draw("COLZ");
-    c1->Draw();
-    c1->SaveAs("smearing.png");
+//     auto sMatrix = df_with_kinematics.Fill(matrix, {varReco.Data(), varTrue.Data(), "ReWeight"});
+//
+//     auto R = sMatrix.GetPtr()->HresponseNoOverflow();
+//     auto c1 = new TCanvas();
+//     R->SetStats(0);
+//     R->SetNameTitle(smearing.Data(), smearingTitle.Data())
+//     R->Draw("COLZ");
+//     c1->Draw();
+//     c1->SaveAs("smearing.png");
 }
 
 void DetectorSmearing()
