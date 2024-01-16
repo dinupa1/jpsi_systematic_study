@@ -6,7 +6,7 @@
 #include<TString.h>
 #include<iostream>
 
-#include "chuckcuts.hh"
+#include "ChamberAcceptance.hh"
 
 using namespace ROOT;
 
@@ -14,6 +14,8 @@ int nbins = 50;
 
 void GetAcceptance(TString var_name, TString kinematics, TString hist_name, TString target, TString particle, TString particle_MC, TString data_MC)
 {
+    SaveDataFrames();
+
     gStyle->SetOptStat(0);
 
     TString mc_cuts = Form("%s && %s", particle_MC.Data(), kinematics.Data());
