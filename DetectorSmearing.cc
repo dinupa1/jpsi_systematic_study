@@ -2,9 +2,9 @@
  * dinupa3@gmail.com
  * Calculating smearing effect due to detector resolution
  */
-R_LOAD_LIBRARY(../apps/RooUnfold/build/libRooUnfold)
+R__LOAD_LIBRARY(../apps/RooUnfold/build/libRooUnfold)
 
-#include "../apps/RooUnfold/src/RooUnfoldResponse.h"
+// #include "../apps/RooUnfold/src/RooUnfoldResponse.h"
 
 #include "DetectorSmearing.hh"
 
