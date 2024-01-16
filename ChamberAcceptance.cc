@@ -6,6 +6,8 @@
 #include<TString.h>
 #include<iostream>
 
+#include "chuckcuts.hh"
+
 using namespace ROOT;
 
 int nbins = 50;
