@@ -26,17 +26,19 @@ void plotSmearing(ROOT::RDF::RNode dataFrame, TString variable, TString kinemati
     auto xmin = df_with_kinematics.Min(variable.Data());
     auto xmax = df_with_kinematics.Max(variable.Data());
 
-    RooUnfoldResponse matrix(bins, *xmin, *xmax);
+    df_with_kinematics.Foreach([] (float x, float y){cout << "--- > true " << x << " , reco " << y << endl;}, {variable.Data(), variableTrue.Data()})
 
-    auto sMatrix = df_with_kinematics.Fill(matrix, {variable.Data(), variableTrue.Data(), "ReWeight"});
-
-    auto R = sMatrix.HresponseNoOverflow();
-    auto c1 = new TCanvas();
-    R->SetStats(0);
-    R->SetNameTitle(smearing.Data(), smearingTitle.Data())
-    R->Draw("COLZ");
-    c1->Draw();
-    c1->SaveAs("smearing.png");
+//     RooUnfoldResponse matrix(bins, *xmin, *xmax);
+//
+//     auto sMatrix = df_with_kinematics.Fill(matrix, {variable.Data(), variableTrue.Data(), "ReWeight"});
+//
+//     auto R = sMatrix.HresponseNoOverflow();
+//     auto c1 = new TCanvas();
+//     R->SetStats(0);
+//     R->SetNameTitle(smearing.Data(), smearingTitle.Data())
+//     R->Draw("COLZ");
+//     c1->Draw();
+//     c1->SaveAs("smearing.png");
 }
 
 void DetectorSmearing()
