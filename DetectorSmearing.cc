@@ -35,7 +35,7 @@ void plotSmearing(ROOT::RDF::RNode dataFrame, TString variable, TString kinemati
 
     auto hist_smearing = new TH2D(smearing.Data(), smearingTitle.Data(), bins, *xmin, *xmax, bins, *xmin, *xmax);
 
-    RooUnfoldResponse smearing_matrix(hist_reco, hist_true, smearing.Data(), smearingTitle.Data());
+    RooUnfoldResponse smearing_matrix(hist_reco.GetPtr(), hist_true.GetPtr(), smearing.Data(), smearingTitle.Data());
 
     auto R = smearing_matrix.HresponseNoOverflow();
     auto c1 = new TCanvas();
