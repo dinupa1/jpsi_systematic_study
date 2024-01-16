@@ -41,5 +41,5 @@ void plotSmearing(ROOT::RDF::RNode dataFrame, TString varTrue, TString varReco, 
 
 void DetectorSmearing()
 {
-    plotSmearing(df_LH2_jpsi_with_basic_cuts, "mMass", "mass", "0.4 < xF < 0.6", "smearing_xF0");
+    plotSmearing(df_LH2_jpsi_with_basic_cuts, "mMass", "mass", "0.4 < xF && xF < 0.6", "smearing_xF0");
 }
