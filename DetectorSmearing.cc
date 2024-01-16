@@ -26,7 +26,7 @@ void plotSmearing(ROOT::RDF::RNode dataFrame, TString varTrue, TString varReco, 
 
     RooUnfoldResponse sMatrix(bins, *xmin, *xmax);
 
-    df_with_kinematics.Foreach([&sMatrix] (float reco_x, float true_x, float weight_x){M->Fill(reco_x, true_x, weight_x);}, {varReco.Data(), varTrue.Data(), "ReWeight"});
+    df_with_kinematics.Foreach([&sMatrix] (float reco_x, float true_x, float weight_x){sMatrix->Fill(reco_x, true_x, weight_x);}, {varReco.Data(), varTrue.Data(), "ReWeight"});
 
 
     auto R = sMatrix.HresponseNoOverflow();
