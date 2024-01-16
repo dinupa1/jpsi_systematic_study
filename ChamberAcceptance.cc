@@ -6,13 +6,11 @@
 #include<TString.h>
 #include<iostream>
 
-#include "ChamberAcceptance.hh"
-
 using namespace ROOT;
 
 int nbins = 50;
 
-void GetAcceptance(TString var_name, double xmin, double xmax, TString kinematics, TString hist_name, TString target, TString particle, TString particle_MC, ROOT::RDF::RNode df_inputs)
+void GetAcceptance(TString var_name, TString kinematics, TString hist_name, TString target, TString particle, TString particle_MC, TString data_MC)
 {
     gStyle->SetOptStat(0);
 
@@ -20,9 +18,16 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kinematic
     TString real_cuts = Form("%s && %s && %s", particle.Data(), target.Data(), kinematics.Data());
     TString mix_cuts = Form("%s && %s", particle.Data(), kinematics.Data());
 
+    RDataFrame df_real_with_basic_cuts("Tree", "data/e906_data.root");
+    RDataFrame df_mix_with_basic_cuts("Tree", "data/e906_mix_data.root");
+    RDataFrame df_mc_with_basic_cuts("Tree", data_MC.Data());
+
     auto df_real = df_real_with_basic_cuts.Filter(real_cuts.Data());
     auto df_mix = df_mix_with_basic_cuts.Filter(mix_cuts.Data());
-    auto df_mc = df_inputs.Filter(mc_cuts.Data());
+    auto df_mc = df_mc_with_basic_cuts.Filter(mc_cuts.Data());
+
+    double xmin = df_mc.Min(var_name.Data());
+    double xmax = df_mc.Max(var_name.Data());
 
 
     TString hReal_name = Form("hist_%s_real", hist_name.Data());
@@ -182,12 +187,12 @@ void ChamberAcceptance()
 {
     double xF_bins[6] = {0.4, 0.6, 0.65, 0.7, 0.77, 0.95};
     double pT_bins[6] = {0, 0.3, 0.45, 0.65, 0.9, 1.5};
-    double xmins[12] = {-25., -35., -65., -65., -10., -85., -135., -135., 5., -155., -155., -155.};
-    double xmaxs[12] = {20., 35., 65., 65., 80., 10., 135., 135., 155., 5., 155., 155.};
+//     double xmins[12] = {-25., -35., -65., -65., -10., -85., -135., -135., 5., -155., -155., -155.};
+//     double xmaxs[12] = {20., 35., 65., 65., 80., 10., 135., 135., 155., 5., 155., 155.};
     TString targets[2] = {"targetPos==1", "targetPos==3"};
     TString particles_mc[2] = {jPsiCut_MC, psipCut};
     TString particles[2] = {jPsiCut, psipCut};
-//     RDataFrame df_mcs[4] = {df_LH2_jpsi_with_basic_cuts, df_LH2_psip_with_basic_cuts, df_LD2_jpsi_with_basic_cuts, df_LD2_psip_with_basic_cuts};
+    TString df_mcs[4] = {"data/e906_LH2_jpsi_MC.root", "data/e906_LH2_psip_MC.root", "data/e906_LD2_jpsi_MC.root", "data/e906_LD2_psip_MC.root"};
     TString df_names[4] = {"LH2_jpsi", "LH2_psip", "LD2_jpsi", "LD2_psip"};
     TString var_names[4] = {"x1", "x2", "y1", "y2"};
     TString stations[3] = {"st1", "st2", "st3"};
@@ -215,15 +220,7 @@ void ChamberAcceptance()
                         TString xF_kinematics = Form("%.2f < xF && xF < %.2f", xF_bins[kk], xF_bins[kk+1]);
                         std::cout << xF_kinematics.Data() << std::endl;
 
-                        if(i==0 && j == 0){GetAcceptance(var_name, xmins[4* ii + jj], xmaxs[4* ii + jj], xF_kinematics, xF_hist_name, targets[i], particles[j], particles_mc[j], df_LH2_jpsi_with_basic_cuts);}
-
-                        if(i==0 && j == 1){GetAcceptance(var_name, xmins[4* ii + jj], xmaxs[4* ii + jj], xF_kinematics, xF_hist_name, targets[i], particles[j], particles_mc[j], df_LH2_psip_with_basic_cuts);}
-
-                        if(i==1 && j == 0){GetAcceptance(var_name, xmins[4* ii + jj], xmaxs[4* ii + jj], xF_kinematics, xF_hist_name, targets[i], particles[j], particles_mc[j], df_LD2_jpsi_with_basic_cuts);}
-
-                        if(i==1 && j == 1){GetAcceptance(var_name, xmins[4* ii + jj], xmaxs[4* ii + jj], xF_kinematics, xF_hist_name, targets[i], particles[j], particles_mc[j], df_LD2_psip_with_basic_cuts);}
-
-//                         GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], xF_kinematics, xF_hist_name, targets[i], particles[j], particles_mc[j], df_mcs[2* i + j]);
+                        GetAcceptance(var_name, xF_kinematics, xF_hist_name, targets[i], particles[j], particles_mc[j], df_mcs[2* i + j]);
 
                         TString pT_hist_name = Form("%s_%s_%s_pT%d", target_names[i].Data(), particle_names[j].Data(), var_name.Data(), kk);
                         std::cout << pT_hist_name.Data() << std::endl;
@@ -231,15 +228,7 @@ void ChamberAcceptance()
                         TString pT_kinematics = Form("%.2f < pT && pT < %.2f", pT_bins[kk], pT_bins[kk+1]);
                         std::cout << pT_kinematics.Data() << std::endl;
 
-                        if(i==0 && j == 0){GetAcceptance(var_name, xmins[4* ii + jj], xmaxs[4* ii + jj], pT_kinematics, pT_hist_name, targets[i], particles[j], particles_mc[j], df_LH2_jpsi_with_basic_cuts);}
-
-                        if(i==0 && j == 1){GetAcceptance(var_name, xmins[4* ii + jj], xmaxs[4* ii + jj], pT_kinematics, pT_hist_name, targets[i], particles[j], particles_mc[j], df_LH2_psip_with_basic_cuts);}
-
-                        if(i==1 && j == 0){GetAcceptance(var_name, xmins[4* ii + jj], xmaxs[4* ii + jj], pT_kinematics, pT_hist_name, targets[i], particles[j], particles_mc[j], df_LD2_jpsi_with_basic_cuts);}
-
-                        if(i==1 && j == 1){GetAcceptance(var_name, xmins[4* ii + jj], xmaxs[4* ii + jj], pT_kinematics, pT_hist_name, targets[i], particles[j], particles_mc[j], df_LD2_psip_with_basic_cuts);}
-
-//                         GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], pT_kinematics, pT_hist_name, targets[i], particles[j], particles_mc[j], df_mcs[2* i + j]);
+                        GetAcceptance(var_name, pT_kinematics, pT_hist_name, targets[i], particles[j], particles_mc[j], df_mcs[2* i + j]);
                     }
                 }
             }
