@@ -6,7 +6,7 @@
 R_LOAD_LIBRARY(/seaquest/users/dinupa/seaquest/apps/RooUnfold/build/libRooUnfold)
 
 #include "DetectorSmearing.hh"
-#include "RooUnfoldResponse.h"
+#include <RooUnfoldResponse.h>
 
 using namespace ROOT;
 
