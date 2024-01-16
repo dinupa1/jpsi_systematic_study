@@ -17,7 +17,7 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kinematic
     gStyle->SetOptStat(0);
 
     TString mc_cuts = Form("%s && %s", particle_MC.Data(), kinematics.Data());
-    TString real_cuts = Form("%s && %s", partile.Data(), target.Data(), kinematics.Data());
+    TString real_cuts = Form("%s && %s && %s", partile.Data(), target.Data(), kinematics.Data());
     TString mix_cuts = Form("%s && %s", particle.Data(), kinematics.Data());
 
     auto df_real = df_real_with_basic_cuts.Filter(real_cuts.Data());
@@ -182,8 +182,8 @@ void ChamberAcceptance()
     double xmins[12] = {-20., -30., -60., -60., -5., -80., -130., -130., 0., -150., -150., -150.};
     double xmaxs[12] = {15., 30., 60., 60., 80., 5., 130., 130., 150., 0., 150., 150.};
     TString targets[2] = {"targetPos==1", "targetPos==3"};
-    double particles_mc[2] = {jPsiCut_MC, psipCut};
-    double particles[2] = {jPsiCut, psipCut};
+    TString particles_mc[2] = {jPsiCut_MC, psipCut};
+    TString particles[2] = {jPsiCut, psipCut};
     RDataFrame df_mcs[4] = {df_LH2_jpsi_with_basic_cuts, df_LH2_psip_with_basic_cuts, df_LD2_jpsi_with_basic_cuts, df_LD2_psip_with_basic_cuts};
     TString df_names[4] = {"LH2_jpsi", "LH2_psip", "LD2_jpsi", "LD2_psip"};
     TString var_names[4] = {"x1", "x2", "y1", "y2"};
@@ -210,7 +210,7 @@ void ChamberAcceptance()
                         std::cout << xF_hist_name.Data() << std::endl;
 
                         TString xF_kinematics = Form("%.2f < xF && xF < %.2f", xF_bins[kk], xF_bins[kk+1]);
-                        std::cout << xF_cuts.Data() << std::endl;
+                        std::cout << xF_kinematics.Data() << std::endl;
 
                         GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], xF_kinematics, xF_hist_name, targets[i], particles[j], particles_mc[j], df_mcs[2* i + j]);
 
@@ -218,7 +218,7 @@ void ChamberAcceptance()
                         std::cout << pT_hist_name.Data() << std::endl;
 
                         TString pT_kinematics = Form("%.2f < pT && pT < %.2f", pT_bins[kk], pT_bins[kk+1]);
-                        std::cout << pT_cuts.Data() << std::endl;
+                        std::cout << pT_kinematics.Data() << std::endl;
 
                         GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], pT_kinematics, pT_hist_name, targets[i], particles[j], particles_mc[j], df_mcs[2* i + j]);
                     }
