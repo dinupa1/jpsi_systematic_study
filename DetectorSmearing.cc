@@ -3,6 +3,7 @@
  * Calculating smearing effect due to detector resolution
  */
 
+R_LOAD_LIBRARY(/seaquest/users/dinupa/seaquest/apps/RooUnfold/build/libRooUnfold)
 
 #include "DetectorSmearing.hh"
 #include "RooUnfoldResponse.h"
@@ -45,6 +46,5 @@ void plotSmearing(ROOT::RDF::RNode dataFrame, TString variable, TString kinemati
 
 void DetectorSmearing()
 {
-    gSystem->Load("RooUnfold/libRooUnfold");
     plotSmearing(df_LH2_jpsi_with_basic_cuts, "Mass", "0.4 < xF < 0.6", "smearing_xF0");
 }
