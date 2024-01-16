@@ -5,8 +5,9 @@
 
 R_LOAD_LIBRARY(../apps/RooUnfold/build/libRooUnfold)
 
+#include "../apps/RooUnfold/src/RooUnfoldResponse.h"
+
 #include "DetectorSmearing.hh"
-#include <RooUnfoldResponse.h>
 
 using namespace ROOT;
 
