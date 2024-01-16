@@ -101,7 +101,7 @@ void GetAcceptance(TString var_name, TString kinematics, TString hist_name, TStr
     TString ratio_name = Form("ratio_%s", hist_name.Data());
     TString ratio_title = Form("Ratio ; (%s) %s [cm]; #frac{MC data}{Real data} [a.u.]", kinematics.Data(), var_name.Data());
 
-    auto ratio_plot = new TH1D(ratio_name.Data(), ratio_title.Data(), nbins, xmin, xmax);
+    auto ratio_plot = new TH1D(ratio_name.Data(), ratio_title.Data(), nbins, *xmin, *xmax);
 
     /*
      * Fractional deviation
@@ -109,7 +109,7 @@ void GetAcceptance(TString var_name, TString kinematics, TString hist_name, TStr
     TString fractional_name = Form("frac_%s", hist_name.Data());
     TString fractional_title = Form("Fractional deviation; (%s) %s [cm]; #frac{Real data - MC data}{MC data}", kinematics.Data(), var_name.Data());
 
-    auto fractional_plot = new TH1D(fractional_name.Data(), fractional_title.Data(), nbins, xmin, xmax);
+    auto fractional_plot = new TH1D(fractional_name.Data(), fractional_title.Data(), nbins, *xmin, *xmax);
 
     for(int i = 0; i < nbins; i++)
     {
@@ -212,7 +212,7 @@ void ChamberAcceptance()
                         std::cout << "---> " << df_names[2*i + j].Data() << std::endl;
 
                         TString var_name = Form("%s_%s", var_names[jj].Data(), stations[ii].Data());
-                        std::cout << xmins[4* ii + jj] << " < " << var_name.Data() << " < " << xmaxs[4* ii + jj] << std::endl;
+                        std::cout << var_name.Data() << std::endl;
 
                         TString xF_hist_name = Form("%s_%s_%s_xF%d", target_names[i].Data(), particle_names[j].Data(), var_name.Data(), kk);
                         std::cout << xF_hist_name.Data() << std::endl;
