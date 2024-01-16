@@ -12,7 +12,7 @@ using namespace ROOT;
 
 int nbins = 50;
 
-void PrintDf(RDF::RNode df)
+void PrintDf(ROOT::RDF::RNode df)
 {
     auto display = df.Display({"x1_st1", "x1_st2", "x1_st3", "pT"});
     display->Print();
