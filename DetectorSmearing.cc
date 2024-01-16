@@ -54,7 +54,7 @@ void DetectorSmearing()
         for(int j = 0; j < 5; j++) // kinematics
         {
             TString xF_cuts = Form("%.2f < xF && xF < %.2f", xFbins[j], xFbins[j+1]);
-            TString pT_cuts = Form("%.2f < pT && pT < %.2f", pTbins[j], pTFbins[j+1]);
+            TString pT_cuts = Form("%.2f < pT && pT < %.2f", pTbins[j], pTbins[j+1]);
 
             //
             // LH2 jpsi
