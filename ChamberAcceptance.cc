@@ -173,6 +173,9 @@ void GetAcceptance(TString var_name, double xmin, double xmax, TString kinematic
 //     l_max2->Draw();
 //     can->Update();
     can->SaveAs(fractional_save.Data());
+    std::cout << hist_name.Data() << std::endl;
+    std::cout << ratio_name.Data() << std::endl;
+    std::cout << fractional_name.Data() << std::endl;
 }
 
 void ChamberAcceptance()
@@ -214,11 +217,11 @@ void ChamberAcceptance()
 
                         if(i==0 && j == 0){GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], xF_kinematics, xF_hist_name, targets[i], particles[j], particles_mc[j], df_LH2_jpsi_with_basic_cuts);}
 
-                        if(i==0 && j == 0){GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], xF_kinematics, xF_hist_name, targets[i], particles[j], particles_mc[j], df_LH2_psip_with_basic_cuts);}
+                        if(i==0 && j == 1){GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], xF_kinematics, xF_hist_name, targets[i], particles[j], particles_mc[j], df_LH2_psip_with_basic_cuts);}
 
-                        if(i==0 && j == 0){GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], xF_kinematics, xF_hist_name, targets[i], particles[j], particles_mc[j], df_LD2_jpsi_with_basic_cuts);}
+                        if(i==1 && j == 0){GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], xF_kinematics, xF_hist_name, targets[i], particles[j], particles_mc[j], df_LD2_jpsi_with_basic_cuts);}
 
-                        if(i==0 && j == 0){GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], xF_kinematics, xF_hist_name, targets[i], particles[j], particles_mc[j], df_LD2_psip_with_basic_cuts);}
+                        if(i==1 && j == 1){GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], xF_kinematics, xF_hist_name, targets[i], particles[j], particles_mc[j], df_LD2_psip_with_basic_cuts);}
 
 //                         GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], xF_kinematics, xF_hist_name, targets[i], particles[j], particles_mc[j], df_mcs[2* i + j]);
 
@@ -230,11 +233,11 @@ void ChamberAcceptance()
 
                         if(i==0 && j == 0){GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], pT_kinematics, pT_hist_name, targets[i], particles[j], particles_mc[j], df_LH2_jpsi_with_basic_cuts);}
 
-                        if(i==0 && j == 0){GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], pT_kinematics, pT_hist_name, targets[i], particles[j], particles_mc[j], df_LH2_psip_with_basic_cuts);}
+                        if(i==0 && j == 1){GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], pT_kinematics, pT_hist_name, targets[i], particles[j], particles_mc[j], df_LH2_psip_with_basic_cuts);}
 
-                        if(i==0 && j == 0){GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], pT_kinematics, pT_hist_name, targets[i], particles[j], particles_mc[j], df_LD2_jpsi_with_basic_cuts);}
+                        if(i==1 && j == 0){GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], pT_kinematics, pT_hist_name, targets[i], particles[j], particles_mc[j], df_LD2_jpsi_with_basic_cuts);}
 
-                        if(i==0 && j == 0){GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], pT_kinematics, pT_hist_name, targets[i], particles[j], particles_mc[j], df_LD2_psip_with_basic_cuts);}
+                        if(i==1 && j == 1){GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], pT_kinematics, pT_hist_name, targets[i], particles[j], particles_mc[j], df_LD2_psip_with_basic_cuts);}
 
 //                         GetAcceptance(var_name, xmins[3* ii + jj], xmaxs[3* ii + jj], pT_kinematics, pT_hist_name, targets[i], particles[j], particles_mc[j], df_mcs[2* i + j]);
                     }
