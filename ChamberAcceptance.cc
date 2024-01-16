@@ -26,8 +26,8 @@ void GetAcceptance(TString var_name, TString kinematics, TString hist_name, TStr
     auto df_mix = df_mix_with_basic_cuts.Filter(mix_cuts.Data());
     auto df_mc = df_mc_with_basic_cuts.Filter(mc_cuts.Data());
 
-    double xmin = df_mc.Min(var_name.Data());
-    double xmax = df_mc.Max(var_name.Data());
+    double xmin = df_real.Min(var_name.Data());
+    double xmax = df_real.Max(var_name.Data());
 
 
     TString hReal_name = Form("hist_%s_real", hist_name.Data());
