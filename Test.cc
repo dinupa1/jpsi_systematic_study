@@ -21,7 +21,7 @@ void PrintDf(ROOT::RDF::RNode df)
 
 void Test()
 {
-    RDataFrame dfs[4] = {df_LH2_jpsi_with_basic_cuts, df_LH2_psip_with_basic_cuts, df_LD2_jpsi_with_basic_cuts, df_LD2_psip_with_basic_cuts};
+    RDataFrame* dfs[4] = {df_LH2_jpsi_with_basic_cuts, df_LH2_psip_with_basic_cuts, df_LD2_jpsi_with_basic_cuts, df_LD2_psip_with_basic_cuts};
 
     for(int i = 0; i < 4; i++)
     {
