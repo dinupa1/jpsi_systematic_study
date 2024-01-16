@@ -206,7 +206,7 @@ void ChamberAcceptance()
                     {
                         std::cout << "---> " << df_names[2*i + j].Data() << std::endl;
 
-                        TString var_name = Form("%s_%s", var_names[ii].Data(), stations[jj].Data());
+                        TString var_name = Form("%s_%s", var_names[jj].Data(), stations[ii].Data());
                         std::cout << xmins[4* ii + jj] << " < " << var_name.Data() << " < " << xmaxs[4* ii + jj] << std::endl;
 
                         TString xF_hist_name = Form("%s_%s_%s_xF%d", target_names[i].Data(), particle_names[j].Data(), var_name.Data(), kk);
