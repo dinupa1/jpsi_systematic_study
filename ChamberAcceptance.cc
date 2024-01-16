@@ -36,9 +36,9 @@ void GetAcceptance(TString var_name, TString kinematics, TString hist_name, TStr
 
     TString hist_title = Form("; (%s) %s [cm]; normalized to unity [a.u.]", kinematics.Data(), var_name.Data());
 
-    auto hReal = df_real.Histo1D({hReal_name.Data(), hist_title.Data(), nbins, xmin, xmax}, var_name.Data());
-    auto hMix = df_mix.Histo1D({hMix_name.Data(), hist_title.Data(), nbins, xmin, xmax}, var_name.Data());
-    auto hMC = df_mc.Histo1D({hMix_name.Data(), hist_title.Data(), nbins, xmin, xmax}, var_name.Data(), "ReWeight");
+    auto hReal = df_real.Histo1D({hReal_name.Data(), hist_title.Data(), nbins, *xmin, *xmax}, var_name.Data());
+    auto hMix = df_mix.Histo1D({hMix_name.Data(), hist_title.Data(), nbins, *xmin, *xmax}, var_name.Data());
+    auto hMC = df_mc.Histo1D({hMix_name.Data(), hist_title.Data(), nbins, *xmin, *xmax}, var_name.Data(), "ReWeight");
 
 
     hReal->Sumw2();
