@@ -40,6 +40,6 @@ auto df_LD2_psip_with_basic_cuts = df_LD2_psip_with_basic_cuts0.Define("pT", "sq
 
 
 TString varRecos[3] = {"mass", "pT", "xF"};
-TString varTrues[3] = {"mMass", "mPT", "mxF"};
+TString varTrues[3] = {"mMass", "mpT", "mxF"};
 double xFbins[6] = {0.4, 0.6, 0.65, 0.7, 0.77, 0.95};
 double pTbins[6] = {0., 0.3, 0.45, 0.65, 0.9, 1.5};
