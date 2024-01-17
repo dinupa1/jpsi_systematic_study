@@ -4,8 +4,6 @@
  */
 R__LOAD_LIBRARY(../apps/RooUnfold/build/libRooUnfold)
 
-// #include "../apps/RooUnfold/src/RooUnfoldResponse.h"
-
 #include "DetectorSmearing.hh"
 
 using namespace ROOT;
@@ -26,11 +24,11 @@ void plotSmearing(ROOT::RDF::RNode dataFrame, TString varTrue, TString varReco, 
     auto ymin = df_with_kinematics.Min(varTrue.Data());
     auto ymax = df_with_kinematics.Max(varTrue.Data());
 
-    TString outputs = Form("%.2f < %s < %.2f and %.2f < %s < %.2f", (*xmin)* 0.9, varReco.Data(), (*xmax)* 1.1, (*ymin)* 0.9, varTrue.Data(), (*ymax)* 1.1);
+    TString outputs = Form("%.2f < %s < %.2f and %.2f < %s < %.2f", (*xmin)* 0.99, varReco.Data(), (*xmax)* 1.01, (*ymin)* 0.99, varTrue.Data(), (*ymax)* 1.01);
 
     cout << outputs.Data() << endl;
 
-    RooUnfoldResponse sMatrix(bins, (*xmin)* 0.9, (*xmax)* 1.1, bins, (*ymin)* 0.9, (*ymax)* 1.1);
+    RooUnfoldResponse sMatrix(bins, (*xmin)* 0.99, (*xmax)* 1.01, bins, (*ymin)* 0.99, (*ymax)* 1.01);
 
     df_with_kinematics.Foreach([&sMatrix] (float reco_x, float true_x, float weight_x){sMatrix.Fill(reco_x, true_x, weight_x);}, {varReco.Data(), varTrue.Data(), "ReWeight"});
 
