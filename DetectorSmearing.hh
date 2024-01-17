@@ -24,19 +24,19 @@ TString basic_psip_cuts = Form("%s && %s && %s && %s && %s && %s", chuckCutsPosi
 
 RDataFrame df_LH2_jpsi_data("Tree", LH2_jpsi_data.Data());
 auto df_LH2_jpsi_with_basic_cuts0 = df_LH2_jpsi_data.Filter(basic_jpsi_cuts.Data());
-auto df_LH2_jpsi_with_basic_cuts = df_LH2_jpsi_with_basic_cuts0.Define("pT", "sqrt(dpx* dpx + dpy* dpy)");
+auto df_LH2_jpsi_with_basic_cuts = df_LH2_jpsi_with_basic_cuts0.Define("pT", "sqrt(dpx* dpx + dpy* dpy)").Define("mpT", "sqrt(mdpx* mdpx + mdpy* mdpy)");
 
 RDataFrame df_LD2_jpsi_data("Tree", LD2_jpsi_data.Data());
 auto df_LD2_jpsi_with_basic_cuts0 = df_LD2_jpsi_data.Filter(basic_jpsi_cuts.Data());
-auto df_LD2_jpsi_with_basic_cuts = df_LD2_jpsi_with_basic_cuts0.Define("pT", "sqrt(dpx* dpx + dpy* dpy)");
+auto df_LD2_jpsi_with_basic_cuts = df_LD2_jpsi_with_basic_cuts0.Define("pT", "sqrt(dpx* dpx + dpy* dpy)").Define("mpT", "sqrt(mdpx* mdpx + mdpy* mdpy)");
 
 RDataFrame df_LH2_psip_data("Tree", LH2_psip_data.Data());
 auto df_LH2_psip_with_basic_cuts0 = df_LH2_psip_data.Filter(basic_psip_cuts.Data());
-auto df_LH2_psip_with_basic_cuts = df_LH2_psip_with_basic_cuts0.Define("pT", "sqrt(dpx* dpx + dpy* dpy)");
+auto df_LH2_psip_with_basic_cuts = df_LH2_psip_with_basic_cuts0.Define("pT", "sqrt(dpx* dpx + dpy* dpy)").Define("mpT", "sqrt(mdpx* mdpx + mdpy* mdpy)");
 
 RDataFrame df_LD2_psip_data("Tree", LD2_psip_data.Data());
 auto df_LD2_psip_with_basic_cuts0 = df_LD2_psip_data.Filter(basic_psip_cuts.Data());
-auto df_LD2_psip_with_basic_cuts = df_LD2_psip_with_basic_cuts0.Define("pT", "sqrt(dpx* dpx + dpy* dpy)");
+auto df_LD2_psip_with_basic_cuts = df_LD2_psip_with_basic_cuts0.Define("pT", "sqrt(dpx* dpx + dpy* dpy)").Define("mpT", "sqrt(mdpx* mdpx + mdpy* mdpy)");
 
 
 TString varRecos[3] = {"mass", "pT", "xF"};
