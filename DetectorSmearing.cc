@@ -59,37 +59,37 @@ void DetectorSmearing()
             //
             // LH2 jpsi
             //
-            TString LH2_jpsi_xF = Form("smearing_LH2_jpsi_%s_xF%d", varRecos[i], j);
+            TString LH2_jpsi_xF = Form("smearing_LH2_jpsi_%s_xF%d", varRecos[i].Data(), j);
             plotSmearing(df_LH2_jpsi_with_basic_cuts, varTrues[i], varRecos[i], xF_cuts, LH2_jpsi_xF);
 
-            TString LH2_jpsi_pT = Form("smearing_LH2_jpsi_%s_pT%d", varRecos[i], j);
+            TString LH2_jpsi_pT = Form("smearing_LH2_jpsi_%s_pT%d", varRecos[i].Data(), j);
             plotSmearing(df_LH2_jpsi_with_basic_cuts, varTrues[i], varRecos[i], pT_cuts, LH2_jpsi_pT);
 
             //
             // LD2 jpsi
             //
-            TString LD2_jpsi_xF = Form("smearing_LD2_jpsi_%s_xF%d", varRecos[i], j);
+            TString LD2_jpsi_xF = Form("smearing_LD2_jpsi_%s_xF%d", varRecos[i].Data(), j);
             plotSmearing(df_LD2_jpsi_with_basic_cuts, varTrues[i], varRecos[i], xF_cuts, LD2_jpsi_xF);
 
-            TString LD2_jpsi_pT = Form("smearing_LD2_jpsi_%s_pT%d", varRecos[i], j);
+            TString LD2_jpsi_pT = Form("smearing_LD2_jpsi_%s_pT%d", varRecos[i].Data(), j);
             plotSmearing(df_LD2_jpsi_with_basic_cuts, varTrues[i], varRecos[i], pT_cuts, LD2_jpsi_pT);
 
             //
             // LH2 psip
             //
-            TString LH2_psip_xF = Form("smearing_LH2_psip_%s_xF%d", varRecos[i], j);
+            TString LH2_psip_xF = Form("smearing_LH2_psip_%s_xF%d", varRecos[i].Data(), j);
             plotSmearing(df_LH2_psip_with_basic_cuts, varTrues[i], varRecos[i], xF_cuts, LH2_psip_xF);
 
-            TString LH2_psip_pT = Form("smearing_LH2_psip_%s_pT%d", varRecos[i], j);
+            TString LH2_psip_pT = Form("smearing_LH2_psip_%s_pT%d", varRecos[i].Data(), j);
             plotSmearing(df_LH2_psip_with_basic_cuts, varTrues[i], varRecos[i], pT_cuts, LH2_psip_pT);
 
             //
             // LD2 psip
             //
-            TString LD2_psip_xF = Form("smearing_LD2_psip_%s_xF%d", varRecos[i], j);
+            TString LD2_psip_xF = Form("smearing_LD2_psip_%s_xF%d", varRecos[i].Data(), j);
             plotSmearing(df_LH2_psip_with_basic_cuts, varTrues[i], varRecos[i], xF_cuts, LD2_psip_xF);
 
-            TString LD2_psip_pT = Form("smearing_LD2_psip_%s_pT%d", varRecos[i], j);
+            TString LD2_psip_pT = Form("smearing_LD2_psip_%s_pT%d", varRecos[i].Data(), j);
             plotSmearing(df_LD2_psip_with_basic_cuts, varTrues[i], varRecos[i], pT_cuts, LD2_psip_pT);
         }
     }
