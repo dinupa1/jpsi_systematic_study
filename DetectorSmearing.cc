@@ -2,6 +2,7 @@
  * dinupa3@gmail.com
  * Calculating smearing effect due to detector resolution
  */
+
 R__LOAD_LIBRARY(../apps/RooUnfold/build/libRooUnfold)
 
 #include "DetectorSmearing.hh"
@@ -13,22 +14,22 @@ using namespace std;
 int bins = 20;
 
 
-void plotSmearing(ROOT::RDF::RNode dataFrame, TString varTrue, TString varReco, TString kinematics, TString smearing)
+void plot_smearing(ROOT::RDF::RNode dataFrame, TString varTrue, TString varReco, TString kinematics, TString smearing)
 {
     TString smearingTitle = Form("Smearing of %s for %s ; Reco. %s; True %s", varReco.Data(), kinematics.Data(), varReco.Data(), varReco.Data());
 
     auto df_with_kinematics = dataFrame.Filter(kinematics.Data());
 
-    auto xmin = df_with_kinematics.Min(varReco.Data());
-    auto xmax = df_with_kinematics.Max(varReco.Data());
-    auto ymin = df_with_kinematics.Min(varTrue.Data());
-    auto ymax = df_with_kinematics.Max(varTrue.Data());
+    auto xmin = df_with_kinematics.Min("mass");
+    auto xmax = df_with_kinematics.Max("mass");
+    auto ymin = df_with_kinematics.Min("mMass");
+    auto ymax = df_with_kinematics.Max("mMass");
 
-    TString outputs = Form("%.2f < %s < %.2f and %.2f < %s < %.2f", (*xmin)* 0.99, varReco.Data(), (*xmax)* 1.01, (*ymin)* 0.99, varTrue.Data(), (*ymax)* 1.01);
+    TString outputs = Form("%.2f < %s < %.2f and %.2f < %s < %.2f", (*xmin)* 0.99, varReco.Data(), (*xmax)* 1.01, (*xmin)* 0.99, varTrue.Data(), (*xmax)* 1.01);
 
     cout << outputs.Data() << endl;
 
-    RooUnfoldResponse sMatrix(bins, (*xmin)* 0.99, (*xmax)* 1.01, bins, (*ymin)* 0.99, (*ymax)* 1.01);
+    RooUnfoldResponse sMatrix(bins, (*xmin)* 0.99, (*xmax)* 1.01, bins, (*xmin)* 0.99, (*xmax)* 1.01);
 
     df_with_kinematics.Foreach([&sMatrix] (float reco_x, float true_x, float weight_x){sMatrix.Fill(reco_x, true_x, weight_x);}, {varReco.Data(), varTrue.Data(), "ReWeight"});
 
@@ -45,9 +46,44 @@ void plotSmearing(ROOT::RDF::RNode dataFrame, TString varTrue, TString varReco, 
     c1->SaveAs(save.Data());
 }
 
+
+// void plot_mass(ROOT::RDF::RNode dataFrame, TString kinematics, TString smearing)
+// {
+//     TString smearingTitle = Form("Smearing of mass for %s ; Reco. mass; True mass", kinematics.Data());
+//
+//     auto df_with_kinematics = dataFrame.Filter(kinematics.Data());
+//
+//     auto xmin = df_with_kinematics.Min(varReco.Data());
+//     auto xmax = df_with_kinematics.Max(varReco.Data());
+//     auto ymin = df_with_kinematics.Min(varTrue.Data());
+//     auto ymax = df_with_kinematics.Max(varTrue.Data());
+//
+//     TString outputs = Form("%.2f < %s < %.2f and %.2f < %s < %.2f", (*xmin)* 0.99, varReco.Data(), (*xmax)* 1.01, (*xmin)* 0.99, varTrue.Data(), (*xmax)* 1.01);
+//
+//     cout << outputs.Data() << endl;
+//
+//     RooUnfoldResponse sMatrix(bins, (*xmin)* 0.99, (*xmax)* 1.01, bins, (*xmin)* 0.99, (*xmax)* 1.01);
+//
+//     df_with_kinematics.Foreach([&sMatrix] (float reco_x, float true_x, float weight_x){sMatrix.Fill(reco_x, true_x, weight_x);}, {"mass", "mMass", "ReWeight"});
+//
+//     auto hist = df_with_kinematics.Histo1D()
+//
+//
+//     auto R = sMatrix.HresponseNoOverflow();
+//     auto c1 = new TCanvas();
+//     R->SetStats(0);
+//     R->SetNameTitle(smearing.Data(), smearingTitle.Data());
+//     R->Draw("COLZ");
+//     c1->Draw();
+//
+//     TString save = Form("imgs/smearing/%s.png", smearing.Data());
+//
+//     c1->SaveAs(save.Data());
+// }
+
 void DetectorSmearing()
 {
-    for(int i = 0; i < 3; i++) // variables
+    for(int i = 0; i < 2; i++) // variables
     {
         for(int j = 0; j < 5; j++) // kinematics
         {
@@ -58,37 +94,62 @@ void DetectorSmearing()
             // LH2 jpsi
             //
             TString LH2_jpsi_xF = Form("smearing_LH2_jpsi_%s_xF%d", varRecos[i].Data(), j);
-            plotSmearing(df_LH2_jpsi_with_basic_cuts, varTrues[i], varRecos[i], xF_cuts, LH2_jpsi_xF);
+            plot_smearing(df_LH2_jpsi_with_basic_cuts, varTrues[i], varRecos[i], xF_cuts, LH2_jpsi_xF);
+
+//             TString LH2_jpsi_xF_mass = Form("smearing_LH2_jpsi_mass_xF%d", j);
+//             plot_mass(df_LH2_jpsi_with_basic_cuts, xF_cuts, LH2_jpsi_xF_mass);
 
             TString LH2_jpsi_pT = Form("smearing_LH2_jpsi_%s_pT%d", varRecos[i].Data(), j);
-            plotSmearing(df_LH2_jpsi_with_basic_cuts, varTrues[i], varRecos[i], pT_cuts, LH2_jpsi_pT);
+            plot_smearing(df_LH2_jpsi_with_basic_cuts, varTrues[i], varRecos[i], pT_cuts, LH2_jpsi_pT);
+
+//             TString LH2_jpsi_pT_mass = Form("smearing_LH2_jpsi_mass_pT%d", j);
+//             plot_mass(df_LH2_jpsi_with_basic_cuts, pT_cuts, LH2_jpsi_pT_mass);
 
             //
             // LD2 jpsi
             //
             TString LD2_jpsi_xF = Form("smearing_LD2_jpsi_%s_xF%d", varRecos[i].Data(), j);
-            plotSmearing(df_LD2_jpsi_with_basic_cuts, varTrues[i], varRecos[i], xF_cuts, LD2_jpsi_xF);
+            plot_smearing(df_LD2_jpsi_with_basic_cuts, varTrues[i], varRecos[i], xF_cuts, LD2_jpsi_xF);
+
+//             TString LD2_jpsi_xF_mass = Form("smearing_LD2_jpsi_mass_xF%d", j);
+//             plot_mass(df_LD2_jpsi_with_basic_cuts, xF_cuts, LD2_jpsi_xF_mass);
 
             TString LD2_jpsi_pT = Form("smearing_LD2_jpsi_%s_pT%d", varRecos[i].Data(), j);
-            plotSmearing(df_LD2_jpsi_with_basic_cuts, varTrues[i], varRecos[i], pT_cuts, LD2_jpsi_pT);
+            plot_smearing(df_LD2_jpsi_with_basic_cuts, varTrues[i], varRecos[i], pT_cuts, LD2_jpsi_pT);
+
+//             TString LD2_jpsi_pT_mass = Form("smearing_LD2_jpsi_mass_pT%d", j);
+//             plot_mass(df_LD2_jpsi_with_basic_cuts, pT_cuts, LD2_jpsi_pT_mass);
 
             //
             // LH2 psip
             //
             TString LH2_psip_xF = Form("smearing_LH2_psip_%s_xF%d", varRecos[i].Data(), j);
-            plotSmearing(df_LH2_psip_with_basic_cuts, varTrues[i], varRecos[i], xF_cuts, LH2_psip_xF);
+            plot_smearing(df_LH2_psip_with_basic_cuts, varTrues[i], varRecos[i], xF_cuts, LH2_psip_xF);
+
+//             TString LH2_psip_xF_mass = Form("smearing_LH2_psip_mass_xF%d", j);
+//             plot_mass(df_LH2_psip_with_basic_cuts, xF_cuts, LH2_jpsi_xF_mass);
 
             TString LH2_psip_pT = Form("smearing_LH2_psip_%s_pT%d", varRecos[i].Data(), j);
-            plotSmearing(df_LH2_psip_with_basic_cuts, varTrues[i], varRecos[i], pT_cuts, LH2_psip_pT);
+            plot_smearing(df_LH2_psip_with_basic_cuts, varTrues[i], varRecos[i], pT_cuts, LH2_psip_pT);
+
+//             TString LH2_psip_pT_mass = Form("smearing_LH2_psip_mass_pT%d", j);
+//             plot_mass(df_LH2_psip_with_basic_cuts, pT_cuts, LH2_psip_pT_mass);
 
             //
             // LD2 psip
             //
             TString LD2_psip_xF = Form("smearing_LD2_psip_%s_xF%d", varRecos[i].Data(), j);
-            plotSmearing(df_LH2_psip_with_basic_cuts, varTrues[i], varRecos[i], xF_cuts, LD2_psip_xF);
+            plot_smearing(df_LD2_psip_with_basic_cuts, varTrues[i], varRecos[i], xF_cuts, LD2_psip_xF);
+
+/*            TString LD2_psip_xF_mass = Form("smearing_LD2_psip_mass_xF%d", j);
+            plot_mass(df_LD2_psip_with_basic_cuts, xF_cuts, LD2_psip_xF_mas*/s);
+
 
             TString LD2_psip_pT = Form("smearing_LD2_psip_%s_pT%d", varRecos[i].Data(), j);
-            plotSmearing(df_LD2_psip_with_basic_cuts, varTrues[i], varRecos[i], pT_cuts, LD2_psip_pT);
+            plot_smearing(df_LD2_psip_with_basic_cuts, varTrues[i], varRecos[i], pT_cuts, LD2_psip_pT);
+
+//             TString LD2_psip_pT_mass = Form("smearing_LD2_psip_mass_pT%d", j);
+//             plot_mass(df_LH2_psip_with_basic_cuts, pT_cuts, LH2_psip_pT_mass);
         }
     }
 }
