@@ -20,10 +20,10 @@ void plot_smearing(ROOT::RDF::RNode dataFrame, TString varTrue, TString varReco,
 
     auto df_with_kinematics = dataFrame.Filter(kinematics.Data());
 
-    auto xmin = df_with_kinematics.Min("mass");
-    auto xmax = df_with_kinematics.Max("mass");
-    auto ymin = df_with_kinematics.Min("mMass");
-    auto ymax = df_with_kinematics.Max("mMass");
+    auto xmin = df_with_kinematics.Min(varReco.Data());
+    auto xmax = df_with_kinematics.Max(varReco.Data());
+    auto ymin = df_with_kinematics.Min(varTrue.Data());
+    auto ymax = df_with_kinematics.Max(varTrue.Data());
 
     TString outputs = Form("%.2f < %s < %.2f and %.2f < %s < %.2f", (*xmin)* 0.99, varReco.Data(), (*xmax)* 1.01, (*xmin)* 0.99, varTrue.Data(), (*xmax)* 1.01);
 
@@ -141,8 +141,8 @@ void DetectorSmearing()
             TString LD2_psip_xF = Form("smearing_LD2_psip_%s_xF%d", varRecos[i].Data(), j);
             plot_smearing(df_LD2_psip_with_basic_cuts, varTrues[i], varRecos[i], xF_cuts, LD2_psip_xF);
 
-/*            TString LD2_psip_xF_mass = Form("smearing_LD2_psip_mass_xF%d", j);
-            plot_mass(df_LD2_psip_with_basic_cuts, xF_cuts, LD2_psip_xF_mas*/s);
+//             TString LD2_psip_xF_mass = Form("smearing_LD2_psip_mass_xF%d", j);
+//             plot_mass(df_LD2_psip_with_basic_cuts, xF_cuts, LD2_psip_xF_mas);
 
 
             TString LD2_psip_pT = Form("smearing_LD2_psip_%s_pT%d", varRecos[i].Data(), j);
