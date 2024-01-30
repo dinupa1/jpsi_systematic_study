@@ -25,7 +25,7 @@ void SaveDataFrames()
     TString basic_real_cuts = Form("%s && %s && %s && %s && %s", chuckCutsPositive_2111v42_tmp.Data(), chuckCutsNegative_2111v42_tmp.Data(), chuckCutsDimuon_2111v42.Data(), physicsCuts_noMassCut_2111v42_tmp.Data(), occCuts_2111v42_Run56.Data());
 
 
-    TString basic_mix_cuts = Form("%s && %s && %s && %s && %s", chuckCutsPositive_2111v42_tmp.Data(), chuckCutsNegative_2111v42_tmp.Data(), chuckCutsDimuon_2111v42.Data(), physicsCuts_noMassCut_2111v42_tmp.Data(), "(targetPos==1 | targetPos==3)");
+    TString basic_mix_cuts = Form("%s && %s && %s && %s && %s", chuckCutsPositive_2111v42_tmp.Data(), chuckCutsNegative_2111v42_tmp.Data(), chuckCutsDimuon_2111v42.Data(), physicsCuts_noMassCut_2111v42_tmp.Data(), "(targetPos==1 || targetPos==3)");
 
     RDataFrame df_real("Tree", real_data.Data());
 

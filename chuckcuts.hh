@@ -1,6 +1,6 @@
 /*
  * dinupa3@gmail.comp
- * Standard cuts applied by Hugo for analysis
+ * Standard cuts applied by Hugo
  * Original file: /seaquest/users/chleung/include/cuts/chuckcuts.h
  */
 
