@@ -13,7 +13,7 @@ using ROOT::RDataFrame;
 
 using namespace std;
 
-int bins = 20;
+int bins = 10;
 
 
 void plot_smearing(ROOT::RDF::RNode df_MC, ROOT::RDF::RNode df_real, ROOT::RDF::RNode df_mix, TString varTrue, TString varReco, TString kinematics, TString smearing)
@@ -56,6 +56,12 @@ void plot_smearing(ROOT::RDF::RNode df_MC, ROOT::RDF::RNode df_real, ROOT::RDF::
     auto hist_mix = df_mix_kinematics.Histo1D({"hist_mix", hist_title.Data(), bins, *xmin, *xmax}, varReco.Data());
 
     hist_real->Add(hist_mix.GetPtr(), -1);
+
+    double ymax_real = 1.5* hist_real->GetMaximum();
+    double ymin_real = 0.1* hist_real->GetMinimum();
+    hist_real->SetMaximum(ymax_real);
+    hist_real->SetMinimum(ymin_real);
+
 
     RooUnfoldBayes unfold_bayes(&sMatrix, hist_real.GetPtr(), 4);
     auto* hUnfo = unfold_bayes.Hreco();
