@@ -98,8 +98,8 @@ TString LD2_psip_mix_cuts = Form("%s && %s", basic_mix_cuts.Data(), psipCut.Data
 auto df_LD2_psip_mix_data0 = df_mix_data.Filter(LD2_psip_mix_cuts.Data());
 auto df_LD2_psip_mix_data = df_LD2_psip_mix_data0.Define("pT", "sqrt(dpx* dpx + dpy* dpy)");
 
-TString varRecos[3] = {"pT", "xF"};
-TString varTrues[3] = {"mpT", "mxF"};
+TString varRecos[2] = {"pT", "xF"};
+TString varTrues[2] = {"mpT", "mxF"};
 double xFbins[6] = {0.4, 0.6, 0.65, 0.7, 0.77, 0.95};
 double pTbins[6] = {0., 0.3, 0.45, 0.65, 0.9, 1.5};
 
