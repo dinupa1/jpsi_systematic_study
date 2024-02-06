@@ -81,10 +81,17 @@ void plot_smearing(ROOT::RDF::RNode df_MC, ROOT::RDF::RNode df_real, ROOT::RDF::
 
     c2->cd(2);
 
-    auto hUnfo0 = (TH1D*)hUnfo->Clone();
-    hUnfo0->Add(hist_real.GetPtr(), -1);
+    auto hUnfo0 = new TH1D("", "", bins, *xmin, *xmax);
 
-    TString unfo_title = Form("; %s; unfold - real", varReco.Data());
+    for(int ii = 0; ii < bins; ii++)
+    {
+        hUnfo0->SetBinContent(ii+1, abs(hUnfo->GetBinContent(ii+1) - hist_real->GetBinContent(ii+1))/hist_real->GetBinContent(ii+1));
+    }
+
+
+//     hUnfo0->Add(hist_real.GetPtr(), -1);
+
+    TString unfo_title = Form("; %s; abs(unfold - real)/real", varReco.Data());
 
     TString save2 = Form("imgs/smearing/unfo_%s.png", smearing.Data());
 
@@ -96,6 +103,9 @@ void plot_smearing(ROOT::RDF::RNode df_MC, ROOT::RDF::RNode df_real, ROOT::RDF::
 
     c2->Update();
     c2->SaveAs(save2.Data());
+
+
+    delete hUnfo0;
 }
 
 
