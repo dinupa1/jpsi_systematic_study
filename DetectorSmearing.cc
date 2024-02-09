@@ -83,6 +83,9 @@ void plot_smearing(ROOT::RDF::RNode df_MC, ROOT::RDF::RNode df_real, ROOT::RDF::
 
     auto hUnfo0 = new TH1D("hUnfo0", "hUnfo0", bins, *xmin, *xmax);
 
+    auto unfo_sumw2 = hUnfo->GetSumw2();
+    auto real_sumw2 = hist_real->GetSumw2();
+
     for(int ii = 0; ii < bins; ii++)
     {
         double a = hUnfo->GetBinContent(ii+1);
@@ -97,7 +100,12 @@ void plot_smearing(ROOT::RDF::RNode df_MC, ROOT::RDF::RNode df_real, ROOT::RDF::
     }
 
     // get the integral
-    x_mean = hUnfo0->IntegralAndError(1, 10, x_error);
+    double error1, error2;
+    double area1 = hUnfo->IntegralAndError(1, 10, error1);
+    double area2 = hist_real->IntegralAndError(1, 10, error2);
+    x_mean = abs(area1 - area2)/area2;
+    double x_error2 = (1./area2)* (1./area2)* error1* error1 + (area1/(area2* area2))* (area1/(area2* area2))* error2* error2;
+    x_error = sqrt(x_error2);
 
 //     cout << "---> x mean " << x_mean << " error " << x_error << endl;
 
@@ -157,6 +165,8 @@ void plot_smearing(ROOT::RDF::RNode df_MC, ROOT::RDF::RNode df_real, ROOT::RDF::
 void DetectorSmearing()
 {
     gSystem->mkdir("imgs/smearing", 1);
+
+    TH1::SetDefaultSumw2();
 
     double LH2_jpsi_pT_yeild[5];
     double LH2_jpsi_pT_yeildE[5];
@@ -223,6 +233,7 @@ void DetectorSmearing()
         plot_smearing(df_LD2_psip_with_basic_cuts, df_LD2_psip_real_data, df_LD2_psip_mix_data, varTrues[1], varRecos[1], pT_cuts, LD2_psip_pT, LD2_psip_pT_yeild[j], LD2_psip_pT_yeildE[j]);
 
     }
+
 
     auto c3 = new TCanvas("c3", "c3", 800, 800);
 
